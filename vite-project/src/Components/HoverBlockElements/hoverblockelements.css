@@ -1,0 +1,52 @@
+.cards {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+  
+  .cards .red {
+    background-color: #e63946; /* Red color */
+  }
+  
+  .cards .blue {
+    background-color: #457b9d; /* Blue color */
+  }
+  
+  .cards .green {
+    background-color: #2a9d8f; /* Green color */
+  }
+  
+  .cards .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    height: 150px;  /* Adjusted for better visibility */
+    width: 150px;
+    border-radius: 15px; /* Smoother border */
+    color: white;
+    cursor: pointer;
+    transition: transform 400ms ease, filter 400ms ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
+  }
+  
+  .cards .card p.tip {
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+  
+  .cards .card p.second-text {
+    font-size: 0.8em;
+    margin-top: 8px;
+  }
+  
+  .cards .card:hover {
+    transform: scale(1.2);
+  }
+  
+  .cards:hover > .card:not(:hover) {
+    filter: blur(5px); /* Blur effect on non-hovered cards */
+    transform: scale(0.9);
+  }
+  
