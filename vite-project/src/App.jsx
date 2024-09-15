@@ -14,6 +14,9 @@ import Profile from './Pages/Profile';
 import Sidebar from './Pages/SideBar Nav';
 import SignUP from './Pages/SignUP';
 import Profile1 from './Pages/profile1'
+import Leave from './Pages/Leave'
+import LeaveRequest from './Pages/LeaveRequest'
+
 // App.js
 function App() {
 
@@ -25,12 +28,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/Contact" element={<Contact />} />
         <Route path="/Error" element={<Error />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/I'm Employee" element={<SignUP/>} />
         <Route path="/Profile1" element={<Profile1 />} />
+        <Route path="/Leave" element={<Leave />} />
+        <Route path="Leave Request" element={<LeaveRequest />} />
       </Routes>
     </Router>
  </>
