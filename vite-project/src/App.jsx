@@ -31,13 +31,6 @@ function App() {
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/I'm Employee" element={<SignUP/>} />
         <Route path="/Profile1" element={<Profile1 />} />
-<<<<<<< Updated upstream
-=======
-        <Route path="/Leave" element={<Leave />} />
-        <Route path="Leave Request" element={<LeaveRequest />} />
-        <Route path="/update/:id" element={<LeaveRequest />} />
-        <Route path="/view" element={<View />} />
->>>>>>> Stashed changes
       </Routes>
     </Router>
  </>
