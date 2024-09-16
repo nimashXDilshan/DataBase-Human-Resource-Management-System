@@ -1,8 +1,15 @@
 import React from 'react'
 import Employeeprofiledetails from '../Components/ProfileDetails/profiledetails';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const profile1 = () => {
+  const navigate = useNavigate(); 
+
+  const handleClick = () => {
+    navigate('/Leave');
+  };
   return  (
+    <>
     <div className="h-screen flex items-start justify-start ">
       <div
   class="profile-card w-[400px] h-[600px] rounded-md shadow-x5 overflow-hidden z-[100] relative cursor-pointer snap-start shrink-0 bg-white flex flex-col items-center justify-center gap-6 transition-all duration-300 group"
@@ -183,9 +190,23 @@ const profile1 = () => {
 </div>
 
 
-<div className="ml-10"><Employeeprofiledetails/></div>
+<div className="ml-10 top-4"><Employeeprofiledetails/></div>
+
       
     </div>
+    <div>
+     <button
+      type="button"
+      onClick={handleClick}
+      className="inline-block bg-sky-800 text-white font-semibold py-2 px-6 rounded-full transition hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    >
+      Go to Leave
+    </button>
+    </div>
+    
+  </>
+
+    
   )
 }
 
