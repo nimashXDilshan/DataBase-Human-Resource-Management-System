@@ -13,6 +13,11 @@ const View = () => {
       .then((resp) => setUser({ ...resp.data[0] }));
   }, [id]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // This gives the format YYYY-MM-DD
+  };
+
   return (
     <div style={{marginTop:"150px"}}>
       <div className="card1">
@@ -31,12 +36,12 @@ const View = () => {
             <br/>
 
             <strong>From: </strong>
-            <span>{user.from_date}</span>
+            <span>{user.from_date ? formatDate(user.from_date) : ""}</span>
             <br/>
             <br/>
 
             <strong>To: </strong>
-            <span>{user.to_date}</span>
+            <span>{user.to_date ? formatDate(user.to_date) : ""}</span>
             <br/>
             <br/>
 
