@@ -14,6 +14,10 @@ import Profile from './Pages/Profile';
 import Sidebar from './Pages/SideBar Nav';
 import SignUP from './Pages/SignUP';
 import Profile1 from './Pages/profile1'
+import Leaves from './Pages/Leave'
+import LeaveRequests from './Pages/LeaveRequest'
+import Views from './Pages/View'
+
 // App.js
 function App() {
 
@@ -31,6 +35,10 @@ function App() {
         <Route path="/Sidebar" element={<Sidebar />} />
         <Route path="/I'm Employee" element={<SignUP/>} />
         <Route path="/Profile1" element={<Profile1 />} />
+        <Route path="/Leave" element={<Leaves />} />
+        <Route path="Leave Request" element={<LeaveRequests />} />
+        {/* <Route path="/update/:id" element={<LeaveRequest />} /> */}
+        <Route path="/View" element={<Views />} />
       </Routes>
     </Router>
  </>
