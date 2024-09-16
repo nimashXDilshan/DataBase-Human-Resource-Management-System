@@ -13,6 +13,7 @@ const Leave = () => {
   const loadData = async () => {
     const response = await axios.get("http://localhost:5000/api/get");
     setData(response.data);
+    setRequestedLeaves(response.data.length);
   };
 
   useEffect(() => {
