@@ -16,6 +16,7 @@ import SignUP from './Pages/SignUP';
 import Profile1 from './Pages/profile1'
 import Leave from './Pages/Leave'
 import LeaveRequest from './Pages/LeaveRequest'
+import View from './Pages/View'
 
 // App.js
 function App() {
@@ -36,6 +37,8 @@ function App() {
         <Route path="/Profile1" element={<Profile1 />} />
         <Route path="/Leave" element={<Leave />} />
         <Route path="Leave Request" element={<LeaveRequest />} />
+        <Route path="/update/:id" element={<LeaveRequest />} />
+        <Route path="/view/:id" element={<View />} />
       </Routes>
     </Router>
  </>
