@@ -140,23 +140,26 @@ const LeaveRequest = () => {
   //   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">Request a Leave</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-8 tracking-wide">
+        Request a Leave
+      </h1>
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-lg"
+        className="bg-white shadow-lg rounded-lg px-10 pt-8 pb-10 w-full max-w-lg transform transition duration-300 hover:shadow-2xl"
       >
         <div className="mb-6 text-left">
           <label
             htmlFor="leave_type"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-semibold mb-2"
           >
             Leave Type*
           </label>
           <select
             name="leave_type"
             id="leave_type"
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             onChange={handleChanges}
             required
             value={leave_type || ""}
@@ -174,7 +177,7 @@ const LeaveRequest = () => {
         <div className="mb-6 text-left">
           <label
             htmlFor="from_date"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-semibold mb-2"
           >
             From*
           </label>
@@ -183,7 +186,7 @@ const LeaveRequest = () => {
             selected={from_date}
             onChange={(date) => setState({ ...state, from_date: date })}
             dateFormat="dd/MM/yyyy"
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             id="from_date"
             name="from_date"
             required
@@ -193,7 +196,7 @@ const LeaveRequest = () => {
         <div className="mb-6 text-left">
           <label
             htmlFor="to_date"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-semibold mb-2"
           >
             To*
           </label>
@@ -202,7 +205,7 @@ const LeaveRequest = () => {
             selected={to_date}
             onChange={(date) => setState({ ...state, to_date: date })}
             dateFormat="dd/MM/yyyy"
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             id="to_date"
             name="to_date"
             required
@@ -212,7 +215,7 @@ const LeaveRequest = () => {
         <div className="mb-6 text-left">
           <label
             htmlFor="leave_reason"
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 text-sm font-semibold mb-2"
           >
             Leave Reason*
           </label>
@@ -220,8 +223,8 @@ const LeaveRequest = () => {
             name="leave_reason"
             id="leave_reason"
             rows="4"
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
-            placeholder="Description"
+            className="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            placeholder="Describe your reason"
             onChange={handleChanges}
             required
             value={leave_reason || ""}
@@ -231,13 +234,13 @@ const LeaveRequest = () => {
         <div className="flex items-center justify-between">
           <Link
             to="/Leave"
-            className="bg-black text-white font-bold py-2 px-4 rounded border border-black hover:bg-white hover:text-black focus:outline-none"
+            className="inline-block bg-gray-600 text-white font-semibold py-2 px-6 rounded-full transition hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             Cancel
           </Link>
           <button
             type="submit"
-            className="bg-black text-white font-bold py-2 px-4 rounded border border-black hover:bg-white hover:text-black focus:outline-none"
+            className="inline-block bg-blue-500 text-white font-semibold py-2 px-6 rounded-full transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Submit
           </button>
