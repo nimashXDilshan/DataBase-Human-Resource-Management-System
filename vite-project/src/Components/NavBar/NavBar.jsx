@@ -56,6 +56,9 @@ function NavBar() {
           </li>  
           <li>
             <Link to="/profile1" className="block py-2 px-4 rounded hover:bg-gray-700">Profile1</Link>
+          </li> 
+          <li>
+            <Link to="/Leave" className="block py-2 px-4 rounded hover:bg-gray-700">Leave</Link>
           </li>  
         </ul>
       </div>
