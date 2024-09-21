@@ -35,7 +35,7 @@ function Sidebar(){
         </li>
         <li>
           <Link
-            to="/Leave"
+            to="/contact"
             className="flex items-center p-4 hover:bg-gray-700 transition-colors duration-200"
           >
             <i className="fas fa-envelope mr-3"></i>
