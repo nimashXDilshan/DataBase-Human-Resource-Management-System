@@ -1,32 +1,91 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql');
-
-// Create a connection pool to the MySQL database
-const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "Ra#A1381",  // Ensure this password is correct
-  database: "jupitersimple"         // Ensure the database name is correct
-});
-
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 const app = express();
 
-// Middleware
 app.use(cors());
-app.use(express.json()); // Built-in middleware for parsing JSON
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-// Sample route to test database connection
-app.get('/test-connection', (req, res) => {
-  db.query('SELECT 1 + 1 AS solution', (err, result) => {
-    if (err) {
-      return res.status(500).send("Database connection failed.");
-    }
-    res.send({ message: "Database connection successful", result });
+// Routes
+//app.use('/api/user', require('./routes/Users'));
+
+
+app.post("/api/post", (req, res) => {
+  const { leave_type, from_date, to_date, leave_reason } = req.body;
+
+  const sqlInsert = "INSERT INTO leave_request (leave_type, from_date, to_date, leave_reason) VALUES (?,?,?,?)";
+  db.query(sqlInsert, [leave_type, from_date, to_date, leave_reason], (error, result) => {
+    if (error) {
+      console.log("SQL error:", error);
+    } 
   });
 });
 
-// Start the server
-app.listen(5000, () => {
-  console.log("Server is running on port 5000.");
+app.delete("/api/remove/:id", (req, res) => {
+  const { id } = req.params;
+
+  const sqlRemove = "DELETE FROM leave_request  WHERE id = ?";
+  db.query(sqlRemove, id, (error, result) => {
+    if (error) {
+      console.log("SQL error:", error);
+    } 
+  });
+});
+
+app.get("/api/get/:id", (req, res) => {
+  const {id} = req.params;
+  const sqlGet = "SELECT * FROM leave_request WHERE id = ?";
+  db.query(sqlGet, [id], (error, result) => {
+    if(error){
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+// app.put("/api/update/:id", (req, res) => {
+//   const { id } = req.params;
+//   const { leave_type, from_date, to_date, leave_reason } = req.body;
+
+//   // Update SQL query with placeholders for parameters
+//   const sqlUpdate = "UPDATE leave_request SET leave_type = ?, from_date = ?, to_date = ?, leave_reason = ? WHERE id = ?";
+  
+//   // Pass the parameters as an array, including the `id` at the end
+//   db.query(sqlUpdate, [leave_type, from_date, to_date, leave_reason, id], (error, result) => {
+//     if (error) {
+//       console.log("SQL error:", error);
+//       res.status(500).send("Error updating record");
+//     } else {
+//       res.send(result);
+//     }
+//   });
+// });
+
+
+app.put("/api/update/:id", (req, res) => {
+  const {id} = req.params;
+  const {leave_type, from_date, to_date, leave_reason} = req.body;
+  const sqlUpdate = "UPDATE leave_request SET leave_type = ?, from_date = ?, to_date = ?, leave_reason = ? WHERE id = ?";
+  db.query(sqlUpdate, [leave_type, from_date, to_date, leave_reason], (error, result) => {
+    if(error){
+      console.log(error);
+    }
+    res.send(result);
+  });
+});
+
+// app.get("/", (req, res) => {
+//   const sqlInsert = "INSERT INTO leave_request (leave_type, from_date, to_date, leave_reason) VALUES ('llll', '2024-01-17', '2024-02-17', 'fdmnggnb')";
+//   db.query(sqlInsert, (error, result) => {
+//     console.log("error", error);
+//     console.log("result", result);
+//     res.send("Hello express");
+//   })
+// })
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  console.log(`http://localhost:${PORT}/`);
 });

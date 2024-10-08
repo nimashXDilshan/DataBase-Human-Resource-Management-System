@@ -10,7 +10,7 @@ const Leave = () => {
   const [remainingLeaves, setRemainingLeaves] = useState(50 - approvedLeaves);
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/get");
+    const response = await axios.get(`http://localhost:5000/api/user/`);
     setData(response.data);
     setRequestedLeaves(response.data.length);
   };
