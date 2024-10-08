@@ -1,0 +1,27 @@
+.card1 {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(0, 0, 0); /* Fixed the border property */
+    align-content: center;
+    margin: 0 auto;
+  }
+  
+  .card-header {
+    height: 50%;
+    background: #000000;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 10px;
+  }
+  
+  .card-header p {
+    font-size: 20px;
+  }
+  
+  .container1 {
+    padding: 4px 16px;
+  }
+  
+  

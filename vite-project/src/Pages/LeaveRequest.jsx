@@ -25,7 +25,7 @@ const LeaveRequest = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/get/${id}`)
+      .get(`http://localhost:5000/api/leave/${id}`)
       .then((resp) => setState({ ...resp.data[0] }));
   }, [id]);
 
@@ -37,9 +37,9 @@ const LeaveRequest = () => {
 
     const formattedFromDate = new Date(from_date).toISOString().split("T")[0];
     const formattedToDate = new Date(to_date).toISOString().split("T")[0];
-
+    console.log(formattedFromDate,leave_type);
     axios
-      .post("http://localhost:5000/api/post", {
+      .post("http://localhost:5000/api/leave/", {
         leave_type,
         from_date: formattedFromDate,
         to_date: formattedToDate,
