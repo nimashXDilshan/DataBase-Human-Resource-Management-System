@@ -46,17 +46,9 @@ function NavBar() {
             <Link to="/error" className="block py-2 px-4 rounded hover:bg-gray-700">Error</Link>
           </li>  
           <li>
-            <Link to="/profile" className="block py-2 px-4 rounded hover:bg-gray-700">Profile</Link>
-          </li>  
-          <li>
-            <Link to="/sidebar" className="block py-2 px-4 rounded hover:bg-gray-700">SideBar Nav</Link>
-          </li>  
-          <li>
             <Link to="/I'm Employee" className="block py-2 px-4 rounded hover:bg-gray-700">I'm Employee</Link>
           </li>  
-          <li>
-            <Link to="/profile1" className="block py-2 px-4 rounded hover:bg-gray-700">Profile1</Link>
-          </li> 
+          
           <li>
             <Link to="/Leave" className="block py-2 px-4 rounded hover:bg-gray-700">Leave</Link>
           </li>  
