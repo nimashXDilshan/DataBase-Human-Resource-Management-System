@@ -2,16 +2,16 @@ import React from 'react';
 
 function ContactUs() {
   return (
-    <div className="contact-page bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-700 py-12 px-4 md:px-16 lg:px-24">
+    <div className="contact-page bg-gradient-to-r from-gray-900 to-navy-900 py-12 px-4 md:px-16 lg:px-24">
       <h1 className="text-5xl font-bold text-center text-white mb-10">Contact Us</h1>
-      <p className="text-lg text-center text-gray-200 mb-12 max-w-2xl mx-auto">
+      <p className="text-lg text-center text-gray-300 mb-12 max-w-2xl mx-auto">
         We're here to help! Reach out to us for any inquiries, feedback, or support. We'd love to hear from you.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Contact Details Section */}
         <div className="bg-gray-800 shadow-lg rounded-lg p-8 hover:bg-gray-700 transition-all duration-300">
-          <h2 className="text-3xl font-semibold text-blue-400 mb-6">Contact Details</h2>
+          <h2 className="text-3xl font-semibold text-white mb-6">Contact Details</h2>
           <p className="text-gray-300 mb-4">
             <strong>Phone:</strong> +1 (555) 123-4567
           </p>
@@ -21,18 +21,18 @@ function ContactUs() {
           <p className="text-gray-300 mb-4">
             <strong>Address:</strong> 123 Fashion Street, Suite 456, New York, NY 10001, USA
           </p>
-          <h3 className="text-2xl font-semibold text-blue-400 mt-8 mb-4">Follow Us</h3>
+          <h3 className="text-2xl font-semibold text-white mt-8 mb-4">Follow Us</h3>
           <div className="flex space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-300">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
               Facebook
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-500 hover:text-pink-300">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300">
               Instagram
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-200">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-200">
               Twitter
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-400">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-400">
               LinkedIn
             </a>
           </div>
@@ -40,14 +40,14 @@ function ContactUs() {
 
         {/* Contact Form Section */}
         <div className="bg-gray-800 shadow-lg rounded-lg p-8 hover:bg-gray-700 transition-all duration-300">
-          <h2 className="text-3xl font-semibold text-blue-400 mb-6">Send Us a Message</h2>
+          <h2 className="text-3xl font-semibold text-white mb-6">Send Us a Message</h2>
           <form className="space-y-6">
             <div>
               <label className="block text-gray-300 font-medium mb-2" htmlFor="name">Your Name</label>
               <input
                 type="text"
                 id="name"
-                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200"
+                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200 bg-gray-900 text-white"
                 placeholder="Enter your name"
               />
             </div>
@@ -56,7 +56,7 @@ function ContactUs() {
               <input
                 type="email"
                 id="email"
-                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200"
+                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200 bg-gray-900 text-white"
                 placeholder="Enter your email"
               />
             </div>
@@ -65,13 +65,13 @@ function ContactUs() {
               <textarea
                 id="message"
                 rows="4"
-                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200"
+                className="w-full p-3 rounded border-2 border-gray-600 focus:border-blue-500 outline-none transition duration-200 bg-gray-900 text-white"
                 placeholder="Enter your message"
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-200"
+              className="w-full py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-500 transition duration-200"
             >
               Send Message
             </button>
