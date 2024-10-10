@@ -9,31 +9,15 @@ const banner = () => {
       <h1
         className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
       >
-        Understand User Flow.
+        Fashion That Flows,
 
-        <span className="sm:block"> Increase Conversion. </span>
+        <span className="sm:block"> Quality That Lasts. </span>
       </h1>
 
-      <p className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo tenetur fuga ducimus
-        numquam ea!
-      </p>
+      <p className="mx-auto mt-4 max-w-xl text-lg sm:text-xl text-gray-400 leading-relaxed px-4 py-2">
+  At Jupiter Apparels, we believe that style should be effortless and enduring. Our commitment to sustainable practices ensures that each piece not only enhances your wardrobe but also contributes to a healthier planet. Discover a collection that reflects your unique identity while prioritizing comfort and longevity.
+</p>
 
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <a
-          className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-          href="#"
-        >
-          Get Started
-        </a>
-
-        <a
-          className="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-          href="#"
-        >
-          Learn More
-        </a>
-      </div>
     </div>
   </div>
 </section>

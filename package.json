@@ -13,6 +13,7 @@
     "mysql": "^2.18.1",
     "react-datepicker": "^7.3.0",
     "react-modal": "^3.16.1",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "vite": "^5.4.8"
   }
 }
