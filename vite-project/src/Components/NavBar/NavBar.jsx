@@ -36,12 +36,12 @@ function NavBar() {
           <li>
             <Link to="/about" className="block py-2 px-4 rounded hover:bg-gray-700">About</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/services" className="block py-2 px-4 rounded hover:bg-gray-700">Services</Link>
           </li>
           <li>
             <Link to="/contact" className="block py-2 px-4 rounded hover:bg-gray-700">Contact</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/error" className="block py-2 px-4 rounded hover:bg-gray-700">Error</Link>
           </li>  

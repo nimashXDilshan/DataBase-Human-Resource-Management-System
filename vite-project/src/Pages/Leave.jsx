@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import Logofooter from '../Components/Logo-Footer/logofooter';
 
 const Leave = () => {
   const [data, setData] = useState([]);
@@ -132,6 +133,8 @@ const Leave = () => {
           </tbody>
         </table>
       </div>
+
+      <div><Logofooter/></div>
 
     </>
   );
