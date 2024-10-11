@@ -1,14 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import HoverBlocks from "../Components/HoverBlockElements/hoverblockelements";
 import OurTeam from "../Components/Team/team";
-import Logofooter from '../Components/Logo-Footer/logofooter';
-
-// const links = [
-//   { name: 'Open roles', href: '#' },
-//   { name: 'Internship program', href: '#' },
-//   { name: 'Our values', href: '#' },
-//   { name: 'Meet our leadership', href: '#' },
-// ];
+import Logofooter from "../Components/Logo-Footer/logofooter";
 
 const stats = [
   { name: "Offices worldwide", value: "12" },
@@ -17,10 +10,35 @@ const stats = [
   { name: "Paid time off", value: "Unlimited" },
 ];
 
+const Counter = ({ target, incrementDuration }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => {
+        if (prevCount < target) {
+          return prevCount + 1; // Increment the count
+        } else {
+          clearInterval(interval); // Stop when the target is reached
+          return prevCount; // Ensure we return the current count if target is reached
+        }
+      });
+    }, incrementDuration); // Use the provided increment duration
+
+    return () => clearInterval(interval); // Clean up interval
+  }, [target, incrementDuration]);
+
+  return (
+    <dd className="text-4xl font-bold text-black hover:text-blue-900">
+      {count}+
+    </dd>
+  );
+};
+
+
 export default function WorkWithUs() {
   return (
     <>
-      <br></br>
       <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
         <img
           alt=""
@@ -52,53 +70,47 @@ export default function WorkWithUs() {
           />
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
+          <div className="mx-auto max-w-2xl lg:mx-0 text-left">
             <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
               Work with us
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              "At Jupiter Apparels, we are committed to innovation and
+            <p className="mt-10 text-lg leading-8 text-gray-300">
+              At Jupiter Apparels, we are committed to innovation and
               sustainability in the fashion industry, providing high-quality
               products to customers worldwide. Join us in shaping the future of
               apparel with a focus on ethical practices and cutting-edge
-              designs."
+              designs.
             </p>
           </div>
 
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
             <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
               {/* Box 1: 12 Offices worldwide */}
-              <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
-                <dd className="text-4xl font-bold text-black hover:text-blue-900">
-                  12
-                </dd>
+              <div className="flex flex-col items-center bg-gray-200 p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
+                <Counter target={12} incrementDuration={50} /> {/* 50 ms */}
                 <dt className="text-lg font-semibold text-gray-700 hover:text-blue-900">
                   Offices worldwide
                 </dt>
               </div>
 
               {/* Box 2: 300+ Full-time colleagues */}
-              <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
-                <dd className="text-4xl font-bold text-black hover:text-blue-900">
-                  300+
-                </dd>
+              <div className="flex flex-col items-center bg-gray-200 p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
+                <Counter target={300} incrementDuration={0} /> {/* 1 ms */}
                 <dt className="text-lg font-semibold text-gray-700 hover:text-blue-900">
                   Full-time colleagues
                 </dt>
               </div>
 
               {/* Box 3: 40 Hours per week */}
-              <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
-                <dd className="text-4xl font-bold text-black hover:text-blue-900">
-                  40
-                </dd>
+              <div className="flex flex-col items-center bg-gray-200 p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
+                <Counter target={40} incrementDuration={40} /> {/* 50 ms */}
                 <dt className="text-lg font-semibold text-gray-700 hover:text-blue-900">
                   Hours per week
                 </dt>
               </div>
 
               {/* Box 4: Unlimited Paid time off */}
-              <div className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
+              <div className="flex flex-col items-center bg-gray-200 p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105 hover:bg-gray-300 hover:shadow-2xl">
                 <dd className="text-4xl font-bold text-black hover:text-blue-900">
                   Unlimited
                 </dd>
@@ -111,26 +123,20 @@ export default function WorkWithUs() {
         </div>
       </div>
 
-      <br></br>
-
-      {/* <div class="avatar w-full h-full pt-5 flex items-center justify-center flex-col gap-5">
-        <HoverBlocks />
-      </div> */}
-
-      <br></br>
-      <div className="bg-gray-100 py-12 px-6 border border-gray-300">
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center tracking-wide hover:text-blue-600 transition duration-300 border-b-4 border-gray-400 pb-4">
+      <div className="bg-gradient-to-r from-gray-900 to-navy-900 py-12 px-6 border border-gray-300">
+        <h1 className="text-4xl font-extrabold mb-10 text-center tracking-wide text-slate-900 transition duration-300 border-b-4 border-gray-400 pb-4">
           OUR TEAM
         </h1>
 
-        <div className="flex justify-center border bg-gray-100 border-gray-300 p-6 rounded-lg shadow-lg">
+        <div className="flex justify-center border bg-gradient-to-r from-gray-900 to-navy-900 border-gray-300 p-6 rounded-lg shadow-lg">
           <div className="w-full max-w-screen-lg border border-gray-300 p-4 rounded-md">
             <OurTeam />
           </div>
         </div>
       </div>
-      <div><Logofooter/></div>
-
+      <div>
+        <Logofooter />
+      </div>
     </>
   );
 }
