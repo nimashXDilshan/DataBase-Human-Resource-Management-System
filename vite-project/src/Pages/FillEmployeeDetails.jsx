@@ -58,27 +58,38 @@ const EmployeeDetailsForm = () => {
 
   const handleConfirmAddition = () => {
     console.log('Employee Added:', formData);
-    // Here you can add your form submission logic
-    setIsModalOpen(false); // Close the modal
-    setFormData({ // Reset form data
-      employeeId: '',
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      birthDate: '',
-      gender: '',
-      maritalStatus: '',
-      companyWorkEmail: '',
-      address: '',
-      telNo: '',
-      recruitmentDate: '',
-      emergencyContactId: '',
-      sectionId: '',
-      branchId: '',
-      supervisorId: '',
-      employmentStatusId: '',
-      roleId: '',
-    });
+    
+    // API call to submit employee details
+    axios
+      .post('http://localhost:5000/api/employees', formData) // Adjust the URL according to your backend endpoint
+      .then((response) => {
+        console.log('Employee successfully added:', response.data);
+        // Reset form data and close modal
+        setIsModalOpen(false);
+        setFormData({
+          employeeId: '',
+          firstName: '',
+          middleName: '',
+          lastName: '',
+          birthDate: '',
+          gender: '',
+          maritalStatus: '',
+          companyWorkEmail: '',
+          address: '',
+          telNo: '',
+          recruitmentDate: '',
+          emergencyContactId: '',
+          sectionId: '',
+          branchId: '',
+          supervisorId: '',
+          employmentStatusId: '',
+          roleId: '',
+        });
+      })
+      .catch((err) => {
+        console.error('Error adding employee:', err);
+        setError('Failed to add employee. Please try again.');
+      });
   };
 
   const handleCloseModal = () => {

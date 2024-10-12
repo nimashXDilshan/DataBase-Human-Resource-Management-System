@@ -11,4 +11,12 @@ const db = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
+db.getConnection((error)=>{
+   if(error){
+    console.log(error)
+   }else{
+    console.log('MySql Connected.....')
+   }
+});
+
 export default db;
