@@ -1,84 +1,86 @@
-import React,{useState} from 'react'
-import Select from 'react-select';
-import Employeeprofiledetails from '../Components/ProfileDetails/profiledetails';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import ContactDetails from './ContactDetails';
+import PersonalDetails from './PersonalDetails';
+import EmploymentDetails from './EmploymentDetails';
+import PayGradeDetails from './PayGradeDetails';
 
-function profile1 () {
-  const countries=[
-    {label:'Sri Lankan', value:'SL' , img :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcqGb_C8g5ecUW8iFijeg0QCVnHXg79MjfWA&s'},
-    {label:'Bangali', value:'Bng' , img :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINjXTYxjC6EbuqpQC3SXsShcGMjJo6-mYTw&s'},
-    {label:'Pakistani', value:'Pak' , img :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwjFfZ5v6esj2iwaq-L_0ZT27FE-1ZWMI7Uw&s'}
-  ];
-  const tabs=[
-    {name:"General"},
-    {name:"Personal"},
-    {name:"Department"},
-    {name:"Pay Grade"}
-  ];
-  const[activeTab,setActiveTab]=useState(0);
+function Profile1() {
+  const [fullName, setFullName] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  return  (
-  <div className='flex items-center justify-between h-screen'>
-    {/* Left Section */}
-    <div className='w-4/12 p-8'> 
-      <div className='w-full flex justify-start'>
-        <img src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png' alt='profile for user' className='w-36 h-36 object-contain -mt-40 ml-2' />
+  // Fetch nationality and full name of the employee
+  useEffect(() => {
+    const fetchNationality = async () => {
+      try {
+        const response = await axios.get("http://localhost:8081/Nationality");
+        const data = response.data[0]; // Assuming the response is an array
+        setFullName(`${data.first_name} ${data.middle_name || ''} ${data.last_name}`);
+        setNationality(data.country);
+      } catch (err) {
+        setError(err);
+        console.error("Error fetching nationality:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNationality();
+  }, []);
+
+  const tabs = [
+    { name: 'Personal', component: <PersonalDetails /> },
+    { name: 'Contacts', component: <ContactDetails /> },
+    { name: 'Employment', component: <EmploymentDetails /> },
+    { name: 'Pay Grade', component: <PayGradeDetails /> },
+  ];
+
+  const [activeTab, setActiveTab] = useState(0);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className="flex items-start justify-between h-screen p-8 bg-gray-100">
+      {/* Left Section */}
+      <div className="w-4/12 flex flex-col items-center mt-24">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+          alt="profile for user"
+          className="w-36 h-36 object-cover transition-transform transform hover:scale-110 border-4 border-blue-500 rounded-full duration-300"
+        />
+        <div className="flex flex-col items-center mt-4 bg-gradient-to-r from-blue-500 to-blue-300 p-4 rounded-lg shadow-lg border border-gray-300 hover:shadow-xl transition-shadow duration-300">
+          <span className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">{fullName}</span>
+          <span className="text-lg font-medium text-gray-600 mt-1 hover:text-blue-500 transition-colors duration-300">{nationality}</span>
+        </div>
       </div>
-      <div className='flex flex-col items-start mt-4 ml-0'> {/* Changed to items-start for left alignment */}
-        <span className='text-xl font-semibold'>Mr. X</span>
-          <div className='flex items-center space-x-2 mt-2 ml-0'> {/* Changed to items-start for left alignment */}
-            <input type='file'className='hidden'id='file-input'onChange={(e) => console.log(e.target.files[0])}/>
-              <label htmlFor='file-input'className='bg-blue-500 text-white px-7 py-2 rounded cursor-pointer hover:bg-blue-600'>
-                Edit
-              </label>
-            <button className='bg-red-500 text-white px-5 py-2 rounded hover:bg-red-600'>
-              Delete
-            </button>
-          </div>
-          <div className='border-t mt-4 pt-2 w-full'>
-            <h5 className='mt-0 font-bold'>Account Details</h5>
-            <div className='flex items-center mt-1'>
-              <h6 className='ml-2 mr-2'>Nationality</h6>
-              <Select
-                options={countries}
-                defaultValue={countries[0]}
-                formatOptionLabel={(option)=>{
-                  return(
-                  <div>
-                    <img src={option.img} alt={option.label} className='w-10 h-8 mr-2'></img>
-                    <span>{option.label}</span>
-                  </div>
-                  )
-                }}/>
+
+      {/* Right Section (Tabs) */}
+      <div className="w-8/12 border-l border-gray-300 flex flex-col justify-start ml-28">
+        <div className="flex mb-6">
+          {tabs.map((tab, index) => (
+            <div
+              key={index}
+              className={`min-w-[200px] p-3 text-center cursor-pointer transition-colors duration-300 ${
+                activeTab === index
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-black hover:bg-blue-300 hover:text-white'
+              }`}
+              onClick={() => setActiveTab(index)}
+            >
+              {tab.name}
             </div>
-          </div>
-      </div>
-    </div>
-    {/* Right Section (Tabs) */}
-    <div className="w-8/12 border-l border-gray-300 flex flex-col justify-start mt-0 mr-24"> {/* Tabs section elevated from the bottom */}
-      <div className="flex profile-tabs mb-80 ml-56">
-        {tabs.map((tab, index) => (
-          <div
-            key={index} // Include key when mapping
-            className={`min-w-[120px] w-auto p-3 text-center cursor-pointer 
-            ${activeTab === index ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}  // Add styles for active/inactive tabs
-            onClick={() => { setActiveTab(index) }}>
-                {tab.name} {/* Display tab name */}
-          </div>
           ))}
         </div>
 
+        <div className="p-4 transition-all duration-300 ease-in-out">
+          {tabs[activeTab].component}
+        </div>
+      </div>
     </div>
-</div>
-  )
-   function inputfield({label,type,id,className,placeholder,changefunction}) {
-     return(
-       <div className={`${className}form-floating`}>
-         <input type={type} className='form-cntrol' id={id} placeholder={placeholder} onChange={(e)=>{changefunction(e.target.value)}}></input>
-         <label htmlFor={id}>{label}</label>
-       </div>
-  )
-  }
+  );
 }
 
-
-export default profile1
+export default Profile1;
