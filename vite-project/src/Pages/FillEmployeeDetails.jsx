@@ -97,25 +97,18 @@ const EmployeeDetailsForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-blue-200 flex items-center justify-center p-6">
       <form onSubmit={handleSubmit} className="max-w-4xl w-full p-8 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold text-center text-white bg-blue-900 py-3 rounded-md mb-6">
           Employee Details Form
         </h2>
 
         {error && <p className="text-red-500 text-center mb-4">{error}</p>} {/* Display error message */}
-
+        <h2 className="text-3x1 font-bold text-center text-blue bg-white py-2 rounded-md mb-6">
+          Personal Details
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-300">Employee ID</label>
-            <input
-              type="text"
-              name="employeeId"
-              value={formData.employeeId}
-              onChange={handleInputChange}
-              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-            />
-          </div>
+          
 
           <div>
             <label className="block text-sm font-medium text-gray-300">First Name</label>
@@ -229,6 +222,107 @@ const EmployeeDetailsForm = () => {
               type="date"
               name="recruitmentDate"
               value={formData.recruitmentDate}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+        </div>
+        <br></br>
+        <h2 className="text-3x1 font-bold text-center text-blue bg-white py-2 rounded-md mb-6">
+          Emergency Contact Details
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Emergency Contact Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Address</label>
+            <input
+              type="text"
+              name="middleName"
+              value={formData.middleName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Emergency Tel NO:</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+        </div>
+        <br></br>
+        <h2 className="text-3x1 font-bold text-center text-blue bg-white py-2 rounded-md mb-6">
+          Company Details
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Section name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Branch name</label>
+            <input
+              type="text"
+              name="middleName"
+              value={formData.middleName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Supervisor name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Employment Status</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300">Role</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
               onChange={handleInputChange}
               className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
             />
