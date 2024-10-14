@@ -20,7 +20,7 @@ app.get('/',(re,res)=>{
 //Personal Details Section
 app.get('/Employee',(req,res)=>{
     const sql = "SELECT * FROM Employee WHERE employee_id = ?";
-    const employeeId = 2; // Replace this with a dynamic value if needed
+    const employeeId = 3; // Replace this with a dynamic value if needed
     db.query(sql, [employeeId], (err, data) => {
         if(err) return res.json(err);
         return res.json(data);
