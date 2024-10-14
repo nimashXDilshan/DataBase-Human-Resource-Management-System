@@ -15,6 +15,7 @@ import Leave from './Pages/Leave'
 import LeaveRequest from './Pages/LeaveRequest'
 import View from './Pages/View'
 import Fillemployeedetails from './Pages/FillEmployeeDetails'
+import Profile from './Pages/profile'
 
 // App.js
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/Leave" element={<Leave />} />
         <Route path="Leave Request" element={<LeaveRequest />} />
         <Route path="/FillEmployeeDetails" element={<Fillemployeedetails/>} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/update/:id" element={<LeaveRequest />} />
         <Route path="/view/:id" element={<View />} />
       </Routes>
