@@ -1,6 +1,5 @@
 // SignUpSignInPage.js
 import React from 'react';
-import LogInSignUp from '../Components/LoginSignUp/loginsignup'; // Adjust the path as needed
 import Picturewithcreateaccount from '../Components/LoginSignUp/loginsignup1';
 
 const SignUpSignInPage = () => {
