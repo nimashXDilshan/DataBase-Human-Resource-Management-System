@@ -2,16 +2,55 @@ import db from '../config/db'; // Assuming you have a database configuration fil
 
 // Function to add a new employee
 exports.addEmployee = (req, res) => {
-  const { name, email, jobTitle, department } = req.body;
+  const {
+    firstName,
+    middleName,
+    lastName,
+    birthDate,
+    gender,
+    maritalStatus,
+    companyWorkEmail,
+    address,
+    telNo,
+    recruitmentDate
+  } = req.body;
 
-  if (!name || !email || !jobTitle || !department) {
-    return res.status(400).json({ message: 'All fields are required' });
+  // Check for required fields
+  if (!firstName || !lastName || !companyWorkEmail || !recruitmentDate) {
+    return res.status(400).json({ message: 'Required fields are missing' });
   }
 
-  const query = 'INSERT INTO employees (name, email, jobTitle, department) VALUES (?, ?, ?, ?)';
-  db.query(query, [name, email, jobTitle, department], (err, result) => {
+  const query = `
+    INSERT INTO employees (
+      firstName,
+      middleName,
+      lastName,
+      birthDate,
+      gender,
+      maritalStatus,
+      companyWorkEmail,
+      address,
+      telNo,
+      recruitmentDate
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [
+    firstName,
+    middleName || null, // Use null if the middleName is not provided
+    lastName,
+    birthDate || null, // Use null if birthDate is not provided
+    gender || null, // Use null if gender is not provided
+    maritalStatus || null, // Use null if maritalStatus is not provided
+    companyWorkEmail,
+    address || null, // Use null if address is not provided
+    telNo || null, // Use null if telNo is not provided
+    recruitmentDate
+  ];
+
+  db.query(query, values, (err, result) => {
     if (err) {
-      return res.status(500).json({ message: 'Error saving the employee details' });
+      return res.status(500).json({ message: 'Error saving the employee details', error: err });
     }
     res.status(201).json({ message: 'Employee added successfully', employeeId: result.insertId });
   });

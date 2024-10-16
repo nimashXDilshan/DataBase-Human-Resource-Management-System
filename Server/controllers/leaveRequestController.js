@@ -38,17 +38,18 @@ export const deleteLeaveRequest = (req, res) => {
 };
 
 export const getLeaveRequestById = (req, res) => {
-  const { id } = req.params;
-  const sqlGet = "SELECT * FROM leave_request WHERE id = ?";
-  
-  db.query(sqlGet, id, (error, result) => {
+  const { id } = req.params; // Extract the id from the request parameters
+  const sqlGet = "SELECT * FROM leave_request WHERE id = ?"; // SQL query to fetch the leave request by id
+
+  db.query(sqlGet, [id], (error, result) => {
     if (error) {
-      console.log(error);
+      console.error("Error retrieving leave request:", error);
       return res.status(500).send("Error retrieving leave request");
     }
     res.send(result);
   });
 };
+
 
 export const updateLeaveRequest = (req, res) => {
   const { id } = req.params;
@@ -57,9 +58,15 @@ export const updateLeaveRequest = (req, res) => {
 
   db.query(sqlUpdate, [leave_type, from_date, to_date, leave_reason, id], (error, result) => {
     if (error) {
-      console.log(error);
-      return res.status(500).send("Error updating leave request");
+      console.error("Error updating leave request:", error);
+      return res.status(500).json({ message: "Error updating leave request" });
     }
-    res.send(result);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Leave request not found" });
+    }
+
+    res.status(200).json({ message: "Leave request updated successfully" });
   });
 };
+

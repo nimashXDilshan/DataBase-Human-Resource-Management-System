@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
 const EmployeeDetailsForm = () => {
   const [formData, setFormData] = useState({
@@ -25,11 +26,14 @@ const EmployeeDetailsForm = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [error, setError] = useState(''); // State for error messages
+  const [branches, setBranches] = useState([]); // State for branches
+  const [suggestedBranches, setSuggestedBranches] = useState([]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -63,7 +67,7 @@ const EmployeeDetailsForm = () => {
     
     // API call to submit employee details
     axios
-      .post('http://localhost:5000/api/employees/', formData) // Adjust the URL according to your backend endpoint
+      .post('http://localhost:5000/api/employee/', formData) // Adjust the URL according to your backend endpoint
       .then((response) => {
         console.log('Employee successfully added:', response.data);
         // Reset form data and close modal
@@ -293,6 +297,19 @@ const EmployeeDetailsForm = () => {
       onChange={handleInputChange}
       className="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
     />
+    {/* {suggestedBranches.length > 0 && (
+                            <ul className="absolute bg-white z-10 mt-1 max-h-48 overflow-auto border border-gray-300">
+                                {suggestedBranches.map(branch => (
+                                    <li
+                                        key={branch.id}
+                                        onClick={() => handleSelectBranch(branch)}
+                                        className="p-2 cursor-pointer hover:bg-blue-200"
+                                    >
+                                        {branch.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )} */}
   </div>
 
   <div>

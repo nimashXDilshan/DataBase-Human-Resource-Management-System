@@ -5,17 +5,29 @@ import axios from "axios";
 const View = () => {
   const [user, setUser] = useState({});
   const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/get/${id}`)
-      .then((resp) => setUser({ ...resp.data[0] }));
+      .get(`http://localhost:5000/api/leave/${id}`)
+      .then((resp) => {
+        setUser({ ...resp.data[0] });
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching leave request data:", error);
+        setIsLoading(false);
+      });
   }, [id]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0]; // This gives the format YYYY-MM-DD
   };
+
+  if (isLoading) {
+    return <div className="text-center mt-4">Loading...</div>;
+  }
 
   return (
     <div
@@ -28,11 +40,6 @@ const View = () => {
         </div>
 
         <div className="p-6">
-          {/* <div className="mb-4">
-            <strong className="text-gray-700">ID: </strong>
-            <span className="text-gray-900">{id}</span>
-          </div> */}
-
           <div className="mb-4">
             <strong className="text-gray-700">Leave Type: </strong>
             <span className="text-gray-900">{user.leave_type}</span>

@@ -19,15 +19,31 @@ const Leave = () => {
     loadData();
   }, []);
 
-  const deleteContent = (id) => {
-    if(window.confirm("Are you sure that you want to delete this content?")){
-      axios.delete(`http://localhost:5000/api/remove/${id}`);
-      toast.success("Content deleted successfully");
-      setTimeout(() => loadData(), 500);
+  const deleteContent = async (id) => {
+    if (window.confirm("Are you sure that you want to delete this content?")) {
+        try {
+            await axios.delete(`http://localhost:5000/api/leave/${id}`);
+            toast.success("Content deleted successfully");
+            setTimeout(() => loadData(), 500);
+        } catch (error) {
+            toast.error("Error deleting content. Please try again.");
+            console.error("Error deleting content:", error);
+        }
     }
   }
-
-  const formatDate = (dateTimeString) => {
+  // const EditContent = async (id) => {
+  //   if (window.confirm("Are you sure that you want to Edit this content?")) {
+  //       try {
+  //           await axios.delete(`http://localhost:5000/api/leave/${id}`);
+  //           toast.success("Content deleted successfully");
+  //           setTimeout(() => loadData(), 500);
+  //       } catch (error) {
+  //           toast.error("Error deleting content. Please try again.");
+  //           console.error("Error deleting content:", error);
+  //       }
+  //   }
+  // }
+const formatDate = (dateTimeString) => {
     const date = new Date(dateTimeString);
     return date.toISOString().split('T')[0];
   };
@@ -111,7 +127,9 @@ const Leave = () => {
                 <td className="py-3 px-4 text-center">{item.leave_reason}</td>
                 <td className="py-3 px-4 text-center space-x-3">
                   <Link to={`/update/${item.id}`}>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    // onClick={() => EditContent(item.id)}
+                    >
                       Edit
                     </button>
                   </Link>
@@ -121,7 +139,7 @@ const Leave = () => {
                   >
                     Delete
                   </button>
-                  <Link to={`/view/${item.id}`}>
+                  <Link to={`/View/${item.id}`}>
                     <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-black">
                       View
                     </button>

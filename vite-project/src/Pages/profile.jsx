@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
-import EmploymentDetails from './EmploymentDetails';
-//import PayGradeDetails from './PayGradeDetails';
+//import EmploymentDetails from './EmploymentDetails';
+import PayGradeDetails from './PayGradeDetails';
 
 function Profile1() {
     const [fullName, setFullName] = useState('');
     const [nationality, setNationality] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    // Fetch nationality and full name of the employee
+    
     useEffect(() => {
       const fetchNationality = async () => {
         try {
@@ -28,10 +28,10 @@ function Profile1() {
       fetchNationality();
     }, []);
     const tabs = [
-      { name: 'Personal', component: <PersonalDetails /> },
-      { name: 'Contacts', component: <ContactDetails /> },
-      { name: 'Employment', component: <EmploymentDetails /> },
-    //  { name: 'Pay Grade', component: <PayGradeDetails /> },
+     { name: 'Personal', component: <PersonalDetails /> },
+     { name: 'Contacts', component: <ContactDetails /> },
+     //{ name: 'Employment', component: <EmploymentDetails /> },
+     { name: 'Pay Grade', component: <PayGradeDetails /> },
     ];
 
     const [activeTab, setActiveTab] = useState(0);

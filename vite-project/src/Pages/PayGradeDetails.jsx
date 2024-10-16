@@ -9,7 +9,7 @@ const PayGradeDetails = () => {
     useEffect(() => {
         const fetchPayGrade = async () => {
             try {
-                const response = await axios.get("http://localhost:8081/PayGrade");
+                const response = await axios.get("http://localhost:5000/PayGrade");
                 console.log("Pay Grade Response:", response.data); // Log the response data
                 setPayGrade(response.data);
             } catch (err) {

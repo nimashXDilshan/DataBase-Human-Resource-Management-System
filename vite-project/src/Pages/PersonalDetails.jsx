@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 function PersonalDetails() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8081/Employee")
+    fetch("http://localhost:5000/Employee")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");

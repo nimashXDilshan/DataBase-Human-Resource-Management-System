@@ -7,7 +7,7 @@ function ContactDetails() {
     useEffect(() => {
         const fetchEmergencyContacts = async () => {
             try {
-                const response = await axios.get("http://localhost:8081/EmergencyContact");
+                const response = await axios.get("http://localhost:5000/EmergencyContact");
                 setContacts(response.data);
             } catch (err) {
                 setError(err);
@@ -36,7 +36,7 @@ function ContactDetails() {
                         <tr>
                             <th className="p-4 text-left bg-gray-100">Emergency Contact Person</th>
                             {contacts.map((contact, i) => (
-                                <td key={i} className="p-4 text-left">{contact.name}</td>
+                                <td key={i} className="p-4 text-left">{contact.contact_name}</td>
                             ))}
                         </tr>
                         {/* Row for Address */}

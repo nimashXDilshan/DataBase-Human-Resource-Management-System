@@ -37,9 +37,9 @@ function App() {
         <Route path="/FillEmployeeDetails" element={<Fillemployeedetails/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/newLogin" element={<CreateUserAccount/>} />
-        {/* <Route path="/update/:id" element={<LeaveRequest />} />
+        <Route path="/update/:id" element={<LeaveRequest />} />
         
-        <Route path="/view/:id" element={<View />} /> */}
+        <Route path="/view/:id" element={<View />} />
       </Routes>
     </Router>
  </>
