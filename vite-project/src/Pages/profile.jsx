@@ -14,7 +14,7 @@ function Profile1() {
     useEffect(() => {
       const fetchNationality = async () => {
         try {
-          const response = await axios.get("http://localhost:8081/Nationality");
+          const response = await axios.get("http://localhost:5000/Nationality");
           const data = response.data[0]; // Assuming the response is an array
           setFullName(`${data.first_name} ${data.middle_name || ''} ${data.last_name}`);
           setNationality(data.country);

@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/leave', leaveRoutes); // Use the leave routes
-app.use('/api/register', createUserAccount);
+app.use('/api/register', createUserAccount)
+
 //app.use('/api/employee', employeeRoutes);
 
 app.listen(5000, () => {
