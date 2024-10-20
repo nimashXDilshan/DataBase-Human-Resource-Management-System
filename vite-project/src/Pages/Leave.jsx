@@ -82,7 +82,7 @@ const Leave = () => {
         <div className="flex justify-center mt-6">
           <Link
             to="/Leave Request"
-            className="inline-block rounded-full bg-gradient-to-r from-gray-600 to-gray-900 px-12 py-3 text-sm font-medium text-white transition duration-300 ease-in-out transform hover:scale-105 hover:from-gray-400 hover:to-gray-700 hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-300 sm:w-auto"
+            className="inline-block rounded-full bg-gradient-to-r from-gray-600 to-gray-900 px-12 py-3 text-sm font-medium text-white transition duration-300 ease-in-out transform hover:scale-105 hover:from-gray-400 hover:to-gray-700 hover:text-black focus:outline-none focus:ring-4 focus:ring-gray-300 sm:w-auto hover:font-bold" 
           >
             Create New Leave Request
           </Link>
@@ -142,6 +142,8 @@ const Leave = () => {
               ))}
             </tbody>
           </table>
+          <br></br>
+          <br></br>
         </div>
 
         <div>

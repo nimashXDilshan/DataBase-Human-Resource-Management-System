@@ -4,7 +4,7 @@ import Logofooter from "../Components/Logo-Footer/logofooter";
 function Services() {
   return (
     <>
-      <div className="services-page bg-gradient-to-bl from-gray-900 to-gray-800 py-10 px-4 md:px-16 lg:px-24">
+      <div className="services-page bg-gradient-to-r from-gray-900 to-navy-900 py-10 px-4 md:px-16 lg:px-24">
         <h1 className="text-5xl font-bold text-center text-gray-100 mb-8">
           Our Services
         </h1>
