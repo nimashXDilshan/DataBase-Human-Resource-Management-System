@@ -1,4 +1,4 @@
-import db from '../config/db'; // Assuming you have a database configuration file
+import db from '../config/db.js'; // Assuming you have a database configuration file
 
 // Function to add a new employee
 exports.addEmployee = (req, res) => {
