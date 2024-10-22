@@ -1,7 +1,7 @@
 import db from '../config/db.js'; // Assuming you have a database configuration file
 
 // Function to add a new employee
-exports.addEmployee = (req, res) => {
+export const addEmployee = (req, res) => {
   const {
     firstName,
     middleName,
@@ -37,7 +37,7 @@ exports.addEmployee = (req, res) => {
 
   const values = [
     firstName,
-    middleName || null, // Use null if the middleName is not provided
+    middleName || null, // Use null if middleName is not provided
     lastName,
     birthDate || null, // Use null if birthDate is not provided
     gender || null, // Use null if gender is not provided

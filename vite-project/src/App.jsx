@@ -18,8 +18,11 @@ import Fillemployeedetails from './Pages/FillEmployeeDetails'
 import Profile from './Pages/profile'
 import CreateUserAccount from './Pages/newLogin'
 import Newloginpage from './Pages/createonlyloginpage'
+import SuccessPage from './Pages/successfullyaddedemployeepage';
 
 import Dashboard from './Pages/dashboard'
+import GototheCreateAccountPageAfterFillForm from './Pages/newLogin'
+
 // App.js
 function App() {
 
@@ -40,6 +43,11 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/newLogin" element={<CreateUserAccount/>} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/newLogin" element={<GototheCreateAccountPageAfterFillForm />} />
+        <Route path="/successfullyaddedemployeepage" element={<SuccessPage />} />
+
+        
+
         <Route path="/update/:id" element={<LeaveRequest />} />
         <Route path="/createonlyloginpage" element={<Newloginpage/>}/>
         <Route path="/view/:id" element={<View />} />

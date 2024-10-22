@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeDetailsForm = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,7 @@ const EmployeeDetailsForm = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [error, setError] = useState(''); // State for error messages
+  const navigate = useNavigate(); 
   const [branches, setBranches] = useState([]); // State for branches
   const [suggestedBranches, setSuggestedBranches] = useState([]);
 
@@ -63,36 +65,13 @@ const EmployeeDetailsForm = () => {
   };
 
   const handleConfirmAddition = () => {
-    console.log('Employee Added:', formData);
-    
-    // API call to submit employee details
     axios
       .post('http://localhost:5000/api/employee/', formData) // Adjust the URL according to your backend endpoint
       .then((response) => {
         console.log('Employee successfully added:', response.data);
-        // Reset form data and close modal
         setIsModalOpen(false);
-        setFormData({
-          
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    birthDate: '',
-    gender: '',
-    maritalStatus: '',
-    companyWorkEmail: '',
-    address: '',
-    telNo: '',
-    recruitmentDate: '',
-    emergencyContactname: '',
-    emergencyaddress: '',
-    emergencyContactNO: '',
-    section: '',
-    branch: '',
-    supervisor: '',
-    employmentStatus: '',
-    role: '',
-        });
+        // Navigate to the Create Account page after success
+        navigate('/newLogin');
       })
       .catch((err) => {
         console.error('Error adding employee:', err);

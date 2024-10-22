@@ -9,7 +9,7 @@ import loginAcconut from './routes/loginAcconutRoutes.js';
 
 //import BranchForFillEmployeeDetails from './routes/BranchRoutes.js';
 
-//import employeeRoutes from './routes/employeeRoutes.js';
+import employeeRoutes from './routes/employeeRoutes.js';
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use('/api/login', loginAcconut);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
 
-//app.use('/api/employee', employeeRoutes);
+app.use('/api/employee', employeeRoutes);
 
 //---------------------------------------------------------------------------------------------------
 

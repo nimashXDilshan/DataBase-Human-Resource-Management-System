@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +27,9 @@ function Register(){
                 setError('');
                 setEmail('');
                 setPassword('');
+                navigate('/successfullyaddedemployeepage');
+
+
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'Something went wrong');
