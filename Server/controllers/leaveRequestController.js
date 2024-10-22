@@ -11,7 +11,7 @@ export const getAllLeaveRequests = (req, res) => {
 };
 
 export const createLeaveRequest = (req, res) => {
-  const { leave_type, from_date, to_date, leave_reason } = req.body;
+  const { leave_type, from_date, to_date, leave_reason} = req.body;
   console.log(req.body);
   const sqlInsert = "INSERT INTO leave_request (leave_type, from_date, to_date, leave_reason) VALUES (?,?,?,?)";
   

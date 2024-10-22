@@ -5,7 +5,7 @@ const SuccessPage = () => {
   const navigate = useNavigate();
 
   const handleBackToDashboard = () => {
-    navigate('/dashboard'); // Redirect to the dashboard
+    navigate('/dashboard1'); // Redirect to the dashboard
   };
 
   const handleAddNewEmployee = () => {

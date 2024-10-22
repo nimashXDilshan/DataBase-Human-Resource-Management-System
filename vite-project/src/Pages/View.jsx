@@ -64,6 +64,14 @@ const View = () => {
             <span className="text-gray-900">{user.leave_reason}</span>
           </div>
 
+          <div className="mb-6">
+  <strong className="text-gray-700 text-lg font-semibold">Status: </strong>
+  <span className="text-white bg-blue-500 px-2 py-1 rounded-md font-medium">
+    {user.status}
+  </span>
+</div>
+
+
           <Link to="/Leave">
             <div className="w-full py-3 bg-gray-900 text-white rounded-lg transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
               Go Back

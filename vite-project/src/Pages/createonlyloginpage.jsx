@@ -28,7 +28,7 @@ const Login = () => {
   localStorage.setItem('user', JSON.stringify(response.data.user));
 
   // Redirect to dashboard
-  window.location.href = '/dashboard';
+  window.location.href = '/dashboard1';
       }
     } catch (error) {
       if (error.response) {

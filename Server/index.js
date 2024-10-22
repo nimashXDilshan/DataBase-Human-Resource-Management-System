@@ -6,6 +6,8 @@ import leaveRoutes from './routes/leaveRoutes.js';
 import createUserAccount from './routes/CreateUserAccountRoute.js';
 import loginAcconut from './routes/loginAcconutRoutes.js';
 
+import approveLeaveRequest from './routes/AcceptLeavesSupervisorRoutes.js';
+
 
 //import BranchForFillEmployeeDetails from './routes/BranchRoutes.js';
 
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/leave', leaveRoutes); // Use the leave routes
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
+
+app.use('/api/approveLeave', approveLeaveRequest);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
 

@@ -1,6 +1,5 @@
-// src/pages/Dashboard.jsx
 import React from 'react';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Typography, Grid, Button } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import EventNoteIcon from '@mui/icons-material/EventNote';
@@ -14,7 +13,6 @@ const Dashboard = () => {
   const today = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const navigate = useNavigate();
 
-
   return (
     <div className="p-6 bg-background min-h-screen flex flex-col items-center">
       {/* Date Banner */}
@@ -26,7 +24,7 @@ const Dashboard = () => {
       {/* Dashboard Overview */}
       <Typography variant="h4" className="mb-6 text-text font-bold text-center p-4">Dashboard Overview</Typography>
 
-      <Grid container spacing={4} justifyContent="center"> {/* Center grid items */}
+      <Grid container spacing={4} justifyContent="center"> {/* Center grid items */} 
         {/* Total Employees */}
         <Grid item xs={12} sm={6} lg={4}>
           <Card className="hover:shadow-2xl transition-shadow duration-300" onClick={() => navigate('/allemployees')}>
@@ -83,6 +81,29 @@ const Dashboard = () => {
           </Card>
         </Grid>
       </Grid>
+
+      {/* Buttons Section */}
+      <div className="mt-8 flex justify-center space-x-4">
+        {/* My Personal Details Button */}
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={() => navigate('/profile')} 
+          className="font-bold"
+        >
+          My Personal Details
+        </Button>
+
+        {/* Create New Leave Request Button */}
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          onClick={() => navigate('/Leave')} 
+          className="font-bold"
+        >
+          Create New Leave Request
+        </Button>
+      </div>
     </div>
   );
 };

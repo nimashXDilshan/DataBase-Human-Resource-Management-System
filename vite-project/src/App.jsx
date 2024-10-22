@@ -21,6 +21,11 @@ import Newloginpage from './Pages/createonlyloginpage'
 import SuccessPage from './Pages/successfullyaddedemployeepage';
 
 import Dashboard from './Pages/dashboard'
+import Dashboard1 from './Pages/dashboard1'
+import LeaveRequestApprovedPart from './Pages/LeaveRequestApprove'
+import SupervisorLeaveApprove from './Pages/ApproveLeaveSupervisor'
+
+
 import GototheCreateAccountPageAfterFillForm from './Pages/newLogin'
 
 // App.js
@@ -46,7 +51,10 @@ function App() {
         <Route path="/newLogin" element={<GototheCreateAccountPageAfterFillForm />} />
         <Route path="/successfullyaddedemployeepage" element={<SuccessPage />} />
 
-        
+        <Route path="/dashboard1" element={<Dashboard1 />} />
+        <Route path="/LeaveRequestApprove" element={<LeaveRequestApprovedPart />} />
+        <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
+
 
         <Route path="/update/:id" element={<LeaveRequest />} />
         <Route path="/createonlyloginpage" element={<Newloginpage/>}/>
