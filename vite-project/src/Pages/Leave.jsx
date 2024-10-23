@@ -105,7 +105,7 @@ const Leave = () => {
                 <td className="py-3 px-4 text-center">{item.leave_type}</td>
                 <td className="py-3 px-4 text-center">{formatDate(item.from_date)}</td>
                 <td className="py-3 px-4 text-center">{formatDate(item.to_date)}</td>
-                <td className="py-3 px-4 text-center">{item.leave_type}</td>
+                <td className="py-3 px-4 text-center">{item.leave_reason}</td>
                 {/* <td className="py-3 px-4 text-center">
                   {item.leave_reason.length > 20 ? `${item.leave_reason.slice(0, 20)}...` : item.leave_reason}
                 </td> */}
