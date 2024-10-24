@@ -15,6 +15,7 @@ import Leave from './Pages/Leave'
 import LeaveRequest from './Pages/LeaveRequest'
 import View from './Pages/View'
 import Fillemployeedetails from './Pages/FillEmployeeDetails'
+import ReportingModule from './Pages/ReportingModule';
 
 // App.js
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path="/FillEmployeeDetails" element={<Fillemployeedetails/>} />
         <Route path="/update/:id" element={<LeaveRequest />} />
         <Route path="/view/:id" element={<View />} />
+        <Route path="/ReportingModule" element={<ReportingModule />} />
       </Routes>
     </Router>
  </>

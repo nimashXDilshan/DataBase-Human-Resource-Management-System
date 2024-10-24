@@ -144,6 +144,8 @@ const Leave = () => {
           </table>
         </div>
 
+
+        <br></br>
         <div>
           <Logofooter />
         </div>

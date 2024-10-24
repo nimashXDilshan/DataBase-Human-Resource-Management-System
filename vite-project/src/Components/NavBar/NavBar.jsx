@@ -67,6 +67,11 @@ function NavBar() {
               Fill Employee Details
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/ReportingModule" className="block py-2 px-4 rounded hover:bg-gray-700" activeClassName="text-red-500">
+              Reporting Module
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>
