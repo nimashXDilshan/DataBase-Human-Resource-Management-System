@@ -5,8 +5,10 @@ import bodyParser from 'body-parser';
 import leaveRoutes from './routes/leaveRoutes.js';
 import createUserAccount from './routes/CreateUserAccountRoute.js';
 import loginAcconut from './routes/loginAcconutRoutes.js';
-
+import db from './config/db.js';
 import approveLeaveRequest from './routes/AcceptLeavesSupervisorRoutes.js';
+import employeeRoute from './routes/employeeRoute.js'
+import employeeMoreInfoRoute from './routes/employeeMoreInfoRoute.js'; 
 
 
 //import BranchForFillEmployeeDetails from './routes/BranchRoutes.js';
@@ -22,21 +24,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/leave', leaveRoutes); // Use the leave routes
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
-
 app.use('/api/approveLeave', approveLeaveRequest);
+app.use('/api/employee', employeeRoute)
+app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
 
 app.use('/api/employee', employeeRoutes);
 
 //---------------------------------------------------------------------------------------------------
-
-const db = mysql2.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Ra#A1381',
-  database: 'jupitersimple'
-});
 
 app.get('/',(re,res)=>{
   return res.json("From Backend side");
