@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Logofooter from '../Components/Logo-Footer/logofooter';
 import HomeHeader1 from '../Components/Home header/homeheader';
 import BannerHome2 from '../Components/Banner/banner2';
+import Products from '../Components/Banner/Products';
 import BannerHome1 from '../Components/Banner/banner';
 import ClothCollection from '../Components/ClothCollection/clothcollection';
 
@@ -38,6 +39,7 @@ const HomePage = () => {
       {/* Main Content Section */}
       <div className="banner-container">
         <BannerHome2 />
+        <Products />
         <ClothCollection />
         <BannerHome1 />
       </div>
