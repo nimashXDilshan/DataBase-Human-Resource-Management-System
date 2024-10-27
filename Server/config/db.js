@@ -15,4 +15,4 @@ const db = mysql.createPool({
   multipleStatements: true
 });
 
-export default db.promise(); // Export the promise connection
+export default db; // Export the promise connection

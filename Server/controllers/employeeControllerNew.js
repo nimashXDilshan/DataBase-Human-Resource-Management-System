@@ -3,7 +3,7 @@ import con from '../config/db.js';
 import db from '../config/db.js'; // Assuming you have a database configuration file
 
 // Function to add a new employee
-const addEmployee = (req, res) => {
+const addEmployee = async (req, res) => {
   const {
     employeeId,
     firstName,
@@ -81,8 +81,15 @@ const addEmployee = (req, res) => {
     }
 
       res.status(201).json({ message: 'Employee added successfully', employeeId: employeeId });
- 
+
   });
+  // try {
+  //   const [rows] = await db.query(queryEmployee, employeeValues);
+  //   res.status(201).json({ message: 'Employee added successfully', employeeId: employeeId });
+  // } catch (error) {
+  //   console.log(error);
+  //   res.status(500).json({ message: 'Error saving the employee details', error: error });
+  // }
 };
 
 export { addEmployee };
@@ -102,6 +109,12 @@ const getAllEmployees = (req, res) => {
     }
     res.status(200).json(result);
   });
+  // try {
+  //   const [rows] = await db.query(query);
+  //   res.status(200).json(rows);
+  // } catch (error) {
+
+  // }
 };
 
 export { getAllEmployees };
@@ -187,7 +200,7 @@ const deleteEmployee = (req, res) => {
       console.log(err);
       return res.status(500).json({ message: 'Error checking employee existence', error: err });
     }
-    
+
     if (results.length === 0) {
       return res.status(404).json({ message: 'Employee not found' });
     }
