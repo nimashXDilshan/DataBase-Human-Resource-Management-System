@@ -7,7 +7,7 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "Dulz@0216",
-  database: "hrms_new"
+  database: "hrms_sd"
 })
 
 const app = express();
