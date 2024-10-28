@@ -11,11 +11,11 @@ export const getAllLeaveRequests = (req, res) => {
 };
 
 export const createLeaveRequest = (req, res) => {
-  const { leave_type, from_date, to_date, leave_reason} = req.body;
+  const { leave_type, from_date, to_date, leave_reason, id} = req.body;
   console.log(req.body);
-  const sqlInsert = "INSERT INTO leave_request (leave_type, from_date, to_date, leave_reason) VALUES (?,?,?,?)";
+  const sqlInsert = "INSERT INTO leave_request (leave_type, from_date, to_date, leave_reason, employee_id) VALUES (?,?,?,?,?)";
   
-  db.query(sqlInsert, [leave_type, from_date, to_date, leave_reason], (error, result) => {
+  db.query(sqlInsert, [leave_type, from_date, to_date, leave_reason, id], (error, result) => {
     if (error) {
       console.log("SQL error:", error);
       return res.status(500).send("Error creating leave request");
@@ -26,7 +26,7 @@ export const createLeaveRequest = (req, res) => {
 
 export const deleteLeaveRequest = (req, res) => {
   const { id } = req.params;
-  const sqlRemove = "DELETE FROM leave_request WHERE id = ?";
+  const sqlRemove = "DELETE FROM leave_request WHERE leave_id = ?";
   
   db.query(sqlRemove, id, (error, result) => {
     if (error) {
