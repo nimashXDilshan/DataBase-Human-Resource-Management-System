@@ -8,25 +8,25 @@ import PayGradeDetails from './PayGradeDetails';
 function Profile1() {
     const [fullName, setFullName] = useState('');
     const [nationality, setNationality] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     
-    useEffect(() => {
-      const fetchNationality = async () => {
-        try {
-          const response = await axios.get("http://localhost:5000/Nationality");
-          const data = response.data[0]; // Assuming the response is an array
-          setFullName(`${data.first_name} ${data.middle_name || ''} ${data.last_name}`);
-          setNationality(data.country);
-        } catch (err) {
-          setError(err);
-          console.error("Error fetching nationality:", err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchNationality();
-    }, []);
+    // useEffect(() => {
+    //   const fetchNationality = async () => {
+    //     try {
+    //       const response = await axios.get("http://localhost:5000/Nationality");
+    //       const data = response.data[0]; // Assuming the response is an array
+    //       setFullName(`${data.first_name} ${data.middle_name || ''} ${data.last_name}`);
+    //       setNationality(data.country);
+    //     } catch (err) {
+    //       setError(err);
+    //       console.error("Error fetching nationality:", err);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+    //   fetchNationality();
+    // }, []);
     const tabs = [
      { name: 'Personal', component: <PersonalDetails /> },
      { name: 'Contacts', component: <ContactDetails /> },
@@ -48,7 +48,7 @@ function Profile1() {
           />
           <div className="flex flex-col items-center mt-4 bg-gradient-to-r from-blue-500 to-blue-300 p-4 rounded-lg shadow-lg border border-gray-300 hover:shadow-xl transition-shadow duration-300">
             <span className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">{fullName}</span>
-            <span className="text-lg font-medium text-gray-600 mt-1 hover:text-blue-500 transition-colors duration-300">{nationality}</span>
+            {/* <span className="text-lg font-medium text-gray-600 mt-1 hover:text-blue-500 transition-colors duration-300">{nationality}</span> */}
           </div>
         </div>
 

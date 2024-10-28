@@ -5,8 +5,12 @@ import bodyParser from 'body-parser';
 import leaveRoutes from './routes/leaveRoutes.js';
 import createUserAccount from './routes/CreateUserAccountRoute.js';
 import loginAcconut from './routes/loginAcconutRoutes.js';
-
+import db from './config/db.js';
 import approveLeaveRequest from './routes/AcceptLeavesSupervisorRoutes.js';
+import employeeRoute from './routes/employeeRoute.js'
+import employeeMoreInfoRoute from './routes/employeeMoreInfoRoute.js'; 
+import {gen} from './controllers/hashgen.js';
+import passport from './auth/stratergy.js';
 
 
 //import BranchForFillEmployeeDetails from './routes/BranchRoutes.js';
@@ -18,25 +22,52 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+
+
+
+
+// Check for the authentication
+const checkAuth = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+    if (err) {
+      console.error('Authentication error:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    if (!user) {
+      console.error('Authentication failed:', info?.message);
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    
+    req.user = user;
+    next();
+  })(req, res, next);
+};
+
+
+const checkHRManager = (req, res, next) => {
+  console.log('Role ', req.user.role_id);
+  if (req.user.role_id === '1') {
+    return next();
+  }
+  return res.status(403).json({ message: 'Forbidden' });
+}
+
+app.use('/api/employee', checkAuth, checkHRManager, employeeRoute)
+
 
 app.use('/api/leave', leaveRoutes); // Use the leave routes
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
-
 app.use('/api/approveLeave', approveLeaveRequest);
+app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
+app.get('/gen',gen);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
 
 app.use('/api/employee', employeeRoutes);
 
 //---------------------------------------------------------------------------------------------------
-
-const db = mysql2.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Ra#A1381',
-  database: 'jupitersimple'
-});
 
 app.get('/',(re,res)=>{
   return res.json("From Backend side");

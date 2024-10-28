@@ -9,14 +9,10 @@ const db = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  multipleStatements: true
 });
 
-db.getConnection((error)=>{
-   if(error){
-    console.log(error)
-   }else{
-    console.log('MySql Connected.....')
-   }
-});
-
-export default db;
+export default db; // Export the promise connection

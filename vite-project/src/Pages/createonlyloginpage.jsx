@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -13,22 +13,14 @@ const Login = () => {
     setSuccess(null);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/login/', { email, password });
+      const response = await axios.post('http://localhost:5000/api/login/', { username, password });
       console.log(response.data);
 
       if (response.data.message === 'Login successful') {
         setSuccess('Login successful! Redirecting...');
-        // Handle successful login (e.g., redirect or store token)
-        // You could redirect the user or save a token in localStorage
-        // Example: localStorage.setItem('token', response.data.token);
-        // window.location.href = '/dashboard';
-
-        // Store token and user information
-  localStorage.setItem('token', response.data.token);
-  localStorage.setItem('user', JSON.stringify(response.data.user));
-
-  // Redirect to dashboard
-  window.location.href = '/dashboard1';
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       if (error.response) {
@@ -52,14 +44,14 @@ const Login = () => {
         {success && <p className="text-green-500 text-center mb-4">{success}</p>}
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+              Username
             </label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
