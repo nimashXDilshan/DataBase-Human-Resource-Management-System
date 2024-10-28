@@ -5,9 +5,9 @@ import mysql from "mysql2";
 
 const db = mysql.createPool({
   host: "localhost",
-  user: "myuser",
+  user: "root",
   password: "mindikalu1231",
-  database: "HRMS_FINAL"
+  database: "HRMS_SD"
 })
 
 const app = express();
