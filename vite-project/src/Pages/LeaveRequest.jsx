@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContexts";
 
 const initialState = {
   leave_type: "",
@@ -15,19 +16,20 @@ const LeaveRequest = () => {
   const [state, setState] = useState(initialState);
   const { leave_type, from_date, to_date, leave_reason } = state;
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleChanges = (e) => {
     const { name, value } = e.target;
     setState({ ...state, [name]: value });
   };
 
-  const { id } = useParams();
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/leave/${id}`)
-      .then((resp) => setState({ ...resp.data[0] }));
-  }, [id]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:5000/api/leave/${user.employee_id}`)
+  //     .then((resp) => setState({ ...resp.data[0] }));
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +42,7 @@ const LeaveRequest = () => {
     console.log(formattedFromDate,leave_type);
     axios
       .post("http://localhost:5000/api/leave/", {
+        id: user.employee_id,
         leave_type,
         from_date: formattedFromDate,
         to_date: formattedToDate,
@@ -80,9 +83,9 @@ const LeaveRequest = () => {
             <option value="" disabled>
               Select the leave type
             </option>
-            <option value="Annual Leave">Annual Leave</option>
-            <option value="Casual Leave">Casual Leave</option>
-            <option value="Maternity Leave">Maternity Leave</option>
+            <option value="Annual">Annual Leave</option>
+            <option value="Casual">Casual Leave</option>
+            <option value="Maternity">Maternity Leave</option>
             <option value="No Pay">No Pay</option>
           </select>
         </div>
