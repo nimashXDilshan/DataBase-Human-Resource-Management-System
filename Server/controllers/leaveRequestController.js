@@ -39,7 +39,7 @@ export const deleteLeaveRequest = (req, res) => {
 
 export const getLeaveRequestById = (req, res) => {
   const { id } = req.params; // Extract the id from the request parameters
-  const sqlGet = "SELECT * FROM leave_request WHERE id = ?"; // SQL query to fetch the leave request by id
+  const sqlGet = "SELECT * FROM leave_request WHERE leave_id = ?"; // SQL query to fetch the leave request by id
 
   db.query(sqlGet, [id], (error, result) => {
     if (error) {
