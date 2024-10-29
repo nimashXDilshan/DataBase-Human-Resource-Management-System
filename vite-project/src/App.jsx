@@ -24,6 +24,7 @@ import Dashboard from './Pages/dashboard'
 import Dashboard1 from './Pages/Dashboard1'
 import LeaveRequestApprovedPart from './Pages/LeaveRequestApprove'
 import SupervisorLeaveApprove from './Pages/ApproveLeaveSupervisor'
+import AllEmploees from './Pages/AllEmployees'
 
 
 import GototheCreateAccountPageAfterFillForm from './Pages/newLogin'
@@ -54,7 +55,7 @@ function App() {
 
 
 
-
+            <Route path="/AllEmployees" element={<AllEmploees />} />
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />

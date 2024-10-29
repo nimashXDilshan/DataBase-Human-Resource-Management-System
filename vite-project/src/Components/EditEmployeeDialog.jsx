@@ -18,6 +18,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import axios from 'axios';
+import api from '../config';
 
 const maritalStatusOptions = ['Married', 'Unmarried'];
 const genderOptions = ['Male', 'Female', 'Other'];
@@ -58,39 +59,36 @@ const EditEmployeeDialog = ({ open, handleClose, employee }) => {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/branch');
+        const response = await api.get('/api/employeeMoreInfo/branch');
         setBranchOptions(response.data);
       } catch (error) {
         console.error('Error fetching branches:', error);
       }
     };
-
     fetchBranches();
   }, []);
 
   useEffect(() => {
     const fetchSupervisors = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/supervisor');
+        const response = await api.get('/api/employeeMoreInfo/supervisor');
         setSupervisorOptions(response.data);
       } catch (error) {
         console.error('Error fetching supervisors:', error);
       }
     };
-
     fetchSupervisors();
   }, []);
 
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/department');
+        const response = await api.get('/api/employeeMoreInfo/department');
         setDepartmentOptions(response.data);
       } catch (error) {
         console.error('Error fetching departments:', error);
       }
     };
-
     fetchDepartments();
   }, []);
 
@@ -101,40 +99,42 @@ const EditEmployeeDialog = ({ open, handleClose, employee }) => {
   useEffect(() => {
     const fetchSectionsByDepartment = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/employeeMoreInfo/section/${selectedDept}`);
+        const response = await api.get(`/api/employeeMoreInfo/section/${selectedDept}`);
         setSections(response.data);
       } catch (error) {
         console.error('Error fetching sections:', error);
       }
     };
-    fetchSectionsByDepartment();
+    if (selectedDept) {
+      fetchSectionsByDepartment();
+    }
   }, [selectedDept]);
 
   useEffect(() => {
     const fetchEmploymentStatuses = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/status');
+        const response = await api.get('/api/employeeMoreInfo/status');
         setEmploymentStatusOptions(response.data);
       } catch (error) {
         console.error('Error fetching employment statuses:', error);
       }
     };
-
     fetchEmploymentStatuses();
   }, []);
 
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/role');
+        const response = await api.get('/api/employeeMoreInfo/role');
         setRoles(response.data);
       } catch (error) {
         console.error('Error fetching roles:', error);
       }
     };
-
     fetchRoles();
   }, []);
+
+
 
 
   const handleInputChange = (e) => {
@@ -153,16 +153,17 @@ const EditEmployeeDialog = ({ open, handleClose, employee }) => {
 
   const handleSave = async (employee) => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/employee/${employee.employeeId}`, formData);
-      console.log('Employee updated successfully:', response.data);
-      // Optionally, you can call handleClose to close the dialog after saving
-      handleClose();
+        const response = await api.put(`/api/employee/${employee.employeeId}`, formData); // Use your custom API instance
+        console.log('Employee updated successfully:', response.data);
+        // Optionally, you can call handleClose to close the dialog after saving
+        handleClose();
     } catch (error) {
-      console.error('Error updating employee:', error);
-      // Optionally, you can display an error message to the user
-      alert('Failed to update employee. Please try again.');
+        console.error('Error updating employee:', error);
+        // Optionally, you can display an error message to the user
+        alert('Failed to update employee. Please try again.');
     }
-  };
+};
+
   
 
 

@@ -19,6 +19,12 @@ import employeeRoutes from './routes/employeeRoutes.js';
 
 const app = express();
 
+// app.use(cors(
+//   {
+//     origin: ['http://localhost:5173'],
+//   }
+// ));
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,15 +58,17 @@ const checkHRManager = (req, res, next) => {
   }
   return res.status(403).json({ message: 'Forbidden' });
 }
+// app.use('/api/employee', employeeRoute)
 
 app.use('/api/employee', checkAuth, checkHRManager, employeeRoute)
+app.use('/api/employeeMoreInfo', checkAuth, checkHRManager, employeeMoreInfoRoute);
+
 
 
 app.use('/api/leave', leaveRoutes); // Use the leave routes
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
 app.use('/api/approveLeave', approveLeaveRequest);
-app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
 app.get('/gen',gen);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)

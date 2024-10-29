@@ -12,7 +12,8 @@ import Select from '@mui/material/Select';
 import AddEmployeeDialog from '../Components/AddEmployeeDialog';
 import ViewMoreDialog from '../Components/ViewMoreDialog';
 import EditEmployeeDialog from '../Components/EditEmployeeDialog';
-import DeleteConfirmationDialog from '../Components/DeleteConfirmationDialog'; // Import the delete dialog
+import DeleteConfirmationDialog from '../Components/DeleteConfirmationDialog'; // Import the delete dialog'
+import api from '../config'
 
 
 const AllEmployees = () => {
@@ -28,15 +29,15 @@ const AllEmployees = () => {
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/employee'); // Replace with your actual API route
-                const data = await response.json();
-                setEmployees(data); // Set the fetched employee data
+                const response = await api.get('/api/employee'); // Use your custom API instance
+                setEmployees(response.data); // Set the fetched employee data
             } catch (error) {
                 console.error('Error fetching employees:', error);
             }
         };
         fetchEmployees();
     }, []); // Empty dependency array to run only on mount
+
 
     const handleSearchByChange = (event) => {
         setSearchBy(event.target.value);
@@ -155,22 +156,22 @@ const AllEmployees = () => {
         setOpenDeleteDialog(true); // Open delete confirmation dialog
     };
 
-    const handleDeleteEmployee = async (employeeId) => {
-        try {
-            const response = await fetch(`http://localhost:3000/api/employee/${employeeId}`, {
-                method: 'DELETE',
-            });
-            if (response.ok) {
-                // Remove the deleted employee from the state
-                setEmployees((prevEmployees) => prevEmployees.filter(employee => employee.employee_id !== employeeId));
-                console.log(`Employee with ID ${employeeId} deleted successfully.`);
-            } else {
-                console.error('Error deleting employee:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error deleting employee:', error);
+const handleDeleteEmployee = async (employeeId) => {
+    try {
+        const response = await api.delete(`/api/employee/${employeeId}`);
+        // Check if the delete operation was successful
+        if (response.status === 200) {
+            // Remove the deleted employee from the state
+            setEmployees((prevEmployees) => prevEmployees.filter(employee => employee.employee_id !== employeeId));
+            console.log(`Employee with ID ${employeeId} deleted successfully.`);
+        } else {
+            console.error('Error deleting employee:', response.statusText);
         }
-    };
+    } catch (error) {
+        console.error('Error deleting employee:', error);
+    }
+};
+
 
     return (
         <div className="p-6 bg-background min-h-screen">
