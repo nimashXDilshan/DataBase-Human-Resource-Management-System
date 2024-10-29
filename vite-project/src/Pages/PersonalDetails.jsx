@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContexts";
+
 function PersonalDetails() {
+
+  const { user } = useAuth(); // Retrieve user object from AuthContext
+  const employee_id = user?.employee_id; 
+
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/Employee")
+    fetch(`http://localhost:5000/api/PersonalDetails/${employee_id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -14,7 +20,10 @@ function PersonalDetails() {
         setData(data);
       })
       .catch((err) => console.log("Error fetching data:", err));
-  }, []);
+  }, [employee_id]);
+
+  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString(); // Format as MM/DD/YYYY

@@ -22,6 +22,7 @@ import SupervisorLeaveApprove from './Pages/ApproveLeaveSupervisor';
 import AllEmploees from './Pages/AllEmployees';
 import { AuthProvider } from './contexts/AuthContexts';
 import PrivateRoute from './contexts/PrivateRoute';
+import SalaryHistory from './Pages/View_salary';
 
 // App.js
 function App() {
@@ -56,6 +57,7 @@ function App() {
               <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
               <Route path="/update/:id" element={<LeaveRequest />} />
               <Route path="/view/:id" element={<View />} />
+              <Route path="/View_salary" element={<SalaryHistory />} />
             </Routes>
           </div>
         </div>

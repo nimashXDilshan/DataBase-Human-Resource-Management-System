@@ -9,7 +9,7 @@ const View = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/leave/${id}`)
+      .get(`http://localhost:5000/api/Viewleave/${id}`)
       .then((resp) => {
         setUser({ ...resp.data[0] });
         setIsLoading(false);
@@ -63,8 +63,6 @@ const View = () => {
             <strong className="text-gray-700">Leave Reason: </strong>
             <span className="text-gray-900">{user.leave_reason}</span>
           </div>
-
-          
 
           <div className="mb-6">
   <strong className="text-gray-700 text-lg font-semibold">Status: </strong>

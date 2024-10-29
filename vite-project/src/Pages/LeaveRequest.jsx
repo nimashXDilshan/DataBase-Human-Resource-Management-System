@@ -41,7 +41,7 @@ const LeaveRequest = () => {
     const formattedToDate = new Date(to_date).toISOString().split("T")[0];
     console.log(formattedFromDate,leave_type);
     axios
-      .post("http://localhost:5000/api/leave/", {
+      .post("http://localhost:5000/api/Createleave/", {
         id: user.employee_id,
         leave_type,
         from_date: formattedFromDate,

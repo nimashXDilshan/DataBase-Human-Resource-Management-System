@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContexts";
+import { useNavigate } from "react-router-dom";
 
 
 const PayGradeDetails = () => {
+    const { user } = useAuth(); // Retrieve user object from AuthContext
+  const employee_id = user?.employee_id;
+  const navigate = useNavigate();
+
     const [payGrade, setPayGrade] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
         const fetchPayGrade = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/PayGrade");
+                const response = await axios.get(`http://localhost:5000/api/PayGrade/${employee_id}`);
                 console.log("Pay Grade Response:", response.data); // Log the response data
                 setPayGrade(response.data);
             } catch (err) {
@@ -20,12 +26,17 @@ const PayGradeDetails = () => {
             }
         };
         fetchPayGrade();
-    }, []);
-    // Placeholder function for viewing salary
+    }, [employee_id]);
+
     const handleViewSalary = () => {
-        console.log("View Salary button clicked!");
-        // Add your logic to view the salary here
-    };
+        navigate("/View_salary");
+      };
+    
+    // Placeholder function for viewing salary
+    // const handleViewSalary = () => {
+    //     console.log("View Salary button clicked!");
+    //     // Add your logic to view the salary here
+    // };
     if (loading) return <div>Loading pay grade details...</div>;
     if (error) return <div>Error: {error.message}</div>;
     
@@ -57,7 +68,7 @@ const PayGradeDetails = () => {
                     onClick={handleViewSalary}
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-transform transform hover:scale-105"
                 >
-                    View Salary
+                    View My Previous Salaries
                 </button>
             </div>
         </div>
