@@ -78,7 +78,7 @@ function NavBar() {
             {/* Auth Section */}
             <div className="flex flex-col lg:flex-row gap-1 lg:gap-2 mt-2 lg:mt-0 lg:ml-4">
               <Link
-                to="/newLogin"
+                to="/createonlyloginpage"
                 className="px-4 py-2 rounded-md text-sm font-medium text-gray-200 hover:bg-slate-700 hover:text-white transition-colors"
               >
                 Login
