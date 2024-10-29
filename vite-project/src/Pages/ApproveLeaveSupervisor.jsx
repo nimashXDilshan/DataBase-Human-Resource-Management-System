@@ -71,14 +71,14 @@ const LeaveRequestsApprover = () => {
                   <td className="px-4 py-2 border">
                     <button
                       className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition duration-200 mr-2"
-                      onClick={() => updateStatus(request.id, "Approved")}
+                      onClick={() => updateStatus(request.leave_id, "Approved")}
                     >
                       Approve
                     </button>
 
                     <button
                       className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-200"
-                      onClick={() => updateStatus(request.id, "Not Approved")}
+                      onClick={() => updateStatus(request.leave_id, "Not Approved")}
                     >
                       Reject
                     </button>

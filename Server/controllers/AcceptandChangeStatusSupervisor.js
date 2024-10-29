@@ -1,9 +1,9 @@
 import db from "../config/db.js"
 export const getUnseenLeaveRequests = (req, res) => {
-    const sqlCode = "SELECT * FROM leave_request WHERE status='Unseen'";
+    const sqlCode = "call getUnSeenLeaves();";
     db.query(sqlCode,(err,data)=>{
         if(err) return res.json(err)
-        return res.json(data)
+        return res.json(data[0])
     });
   };
   export const getUpdatedData = (req, res) => {
@@ -11,7 +11,7 @@ export const getUnseenLeaveRequests = (req, res) => {
     const { status } = req.body; // This will either be 'Approved' or 'Not Approved'
     
     // Update the leave request status in the database
-    const sqlUpdate = "UPDATE leave_request SET status = ? WHERE id = ?"; // Use id from params
+    const sqlUpdate = "call approveLeave(?,?);"; // Use id from params
     db.query(sqlUpdate, [status, id], (error, results) => {
       if (error) {
         console.error(error);
