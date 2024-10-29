@@ -192,38 +192,6 @@ const handleDeleteEmployee = async (employeeId) => {
                 </Button>
             </div>
 
-            {/* Search and Dropdown */}
-            <div className="flex justify-between mb-4">
-                <div className="flex items-center space-x-4">
-                    <TextField
-                        label="Search Employees"
-                        variant="outlined"
-                        value={searchQuery}
-                        onChange={handleSearch}
-                        InputProps={{
-                            endAdornment: (
-                                <IconButton>
-                                    <SearchIcon />
-                                </IconButton>
-                            ),
-                        }}
-                        className="w-96"
-                    />
-
-                    <Select
-                        value={searchBy}
-                        onChange={handleSearchByChange}
-                        variant="outlined"
-                        className="bg-white"
-                    >
-                        <MenuItem value="name">Name</MenuItem>
-                        <MenuItem value="employeeId">Employee ID</MenuItem>
-                        <MenuItem value="email">Email</MenuItem>
-                        <MenuItem value="role">Role</MenuItem>
-                    </Select>
-                </div>
-            </div>
-
             {/* Employee Table */}
             <TableContainer className="shadow-lg">
                 <Table>
