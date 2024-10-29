@@ -110,18 +110,18 @@ const Leave = () => {
                   {item.leave_reason.length > 20 ? `${item.leave_reason.slice(0, 20)}...` : item.leave_reason}
                 </td> */}
                 <td className="py-3 px-4 text-center space-x-3">
-                  <Link to={`/update/${item.id}`}>
+                  <Link to={`/update/${item.leave_id}`}>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                       Edit
                     </button>
                   </Link>
                   <button
                     className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-                    onClick={() => deleteContent(item.id)}
+                    onClick={() => deleteContent(item.leave_id)}
                   >
                     Delete
                   </button>
-                  <Link to={`/View/${item.id}`}>
+                  <Link to={`/View/${item.leave_id}`}>
                     <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-black">
                       View
                     </button>

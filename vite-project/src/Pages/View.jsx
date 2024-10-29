@@ -64,10 +64,12 @@ const View = () => {
             <span className="text-gray-900">{user.leave_reason}</span>
           </div>
 
+          
+
           <div className="mb-6">
   <strong className="text-gray-700 text-lg font-semibold">Status: </strong>
   <span className="text-white bg-blue-500 px-2 py-1 rounded-md font-medium">
-    {user.status}
+    {user.leave_status}
   </span>
 </div>
 

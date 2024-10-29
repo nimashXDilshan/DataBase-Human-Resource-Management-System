@@ -18,6 +18,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import axios from 'axios';
+import api from '../config';
 
 const AddEmployeeDialog = ({ open, handleClose }) => {
   const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   useEffect(() => {
     const fetchBranches = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/branch'); // Your backend API endpoint
+        const response = await api.get('/api/employeeMoreInfo/branch'); // Use your custom API instance
         setBranchOptions(response.data); // Set the fetched branch data
       } catch (error) {
         console.error('Error fetching branches:', error);
@@ -73,7 +74,7 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   useEffect(() => {
     const fetchSupervisors = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/supervisor');
+        const response = await api.get('/api/employeeMoreInfo/supervisor'); // Use your custom API instance
         setSupervisorOptions(response.data); // Set the fetched supervisors in state
       } catch (error) {
         console.error('Error fetching supervisors:', error);
@@ -86,7 +87,7 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/department'); // Your backend API endpoint
+        const response = await api.get('/api/employeeMoreInfo/department'); // Use your custom API instance
         setDepartmentOptions(response.data); // Set the fetched department data
       } catch (error) {
         console.error('Error fetching departments:', error);
@@ -96,24 +97,25 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
     fetchDepartments(); // Fetch departments when the component loads
   }, []);
 
-
   useEffect(() => {
     const fetchSectionsByDepartment = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/employeeMoreInfo/section/${selectedDept}`); // Your backend API endpoint
+        const response = await api.get(`/api/employeeMoreInfo/section/${selectedDept}`); // Use your custom API instance
         setSections(response.data); // Set the fetched sections in state
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Error fetching sections:', error);
       }
     };
-    fetchSectionsByDepartment(); // Call the function to fetch section data
+    
+    if (selectedDept) {
+      fetchSectionsByDepartment(); // Call the function to fetch section data only if selectedDept is defined
+    }
   }, [selectedDept]);
 
   useEffect(() => {
     const fetchEmploymentStatuses = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/status'); // Your backend API endpoint
+        const response = await api.get('/api/employeeMoreInfo/status'); // Use your custom API instance
         setEmploymentStatusOptions(response.data); // Set the fetched employment status data
       } catch (error) {
         console.error('Error fetching employment statuses:', error);
@@ -126,7 +128,7 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/employeeMoreInfo/role'); // Your backend API endpoint for roles
+        const response = await api.get('/api/employeeMoreInfo/role'); // Use your custom API instance
         setRoles(response.data); // Set the fetched role data
       } catch (error) {
         console.error('Error fetching roles:', error);
@@ -155,17 +157,18 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   }
 
   // Handle form submission
-  const handleSubmit = () => {
-    axios
-      .post('http://localhost:3000/api/employee', formData)
-      .then((response) => {
+  const handleSubmit = async () => {
+    try {
+        const response = await api.post('/api/employee', formData); // Use your custom API instance
         console.log('Employee added:', response.data);
-        handleClose();
-      })
-      .catch((error) => {
+        handleClose(); // Close the dialog after successful submission
+    } catch (error) {
         console.error('Error adding employee:', error);
-      });
-  };
+        // Optionally, you can display an error message to the user
+        alert('Failed to add employee. Please try again.');
+    }
+};
+
 
   return (
     <Dialog open={open} onClose={handleClose}>
