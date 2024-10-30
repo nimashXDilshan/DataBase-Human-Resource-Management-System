@@ -20,6 +20,7 @@ import PrivateRoute from './contexts/PrivateRoute';
 import SalaryHistory from './Pages/View_salary';
 import Reportingmodule from './Pages/ReportingModule';
 import NavBarTop from './Components/NavBar//NavBarTop'; // Adjust import path as necessary
+import NavBarAdmin from './Components/NavBar/NavBarAdmin'; // Adjust import path as necessary
 
 
 

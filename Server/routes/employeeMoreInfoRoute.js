@@ -76,6 +76,7 @@ router.get('/status', (req, res) => {
 router.get('/role', (req, res) => {
   const query = 'SELECT role_id, role_name FROM role';
 
+
   db.query(query, (err, result) => {
     if (err) {
       console.error('Error fetching roles:', err);

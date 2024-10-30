@@ -71,6 +71,14 @@ const checkHRManager = (req, res, next) => {
   return res.status(403).json({ message: 'Forbidden' });
 }
 
+const checkAdmin = (req, res, next) => {
+  console.log('Role ', req.user.role_id);
+  if (req.user.role_id === '0') {
+    return next();
+  }
+  return res.status(403).json({ message: 'Forbidden' });
+}
+
 app.use('/api/employee', checkAuth, checkHRManager, employeeRoute);
 app.use('/api/employeeMoreInfo', checkAuth, checkHRManager, employeeMoreInfoRoute);
 
