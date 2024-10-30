@@ -23,16 +23,33 @@ import { AuthProvider, useAuth } from './contexts/AuthContexts';
 import PrivateRoute from './contexts/PrivateRoute';
 import SalaryHistory from './Pages/View_salary';
 import Reportingmodule from './Pages/ReportingModule';
+import NavBarTop from './Components/NavBar//NavBarTop'; // Adjust import path as necessary
+
+
 
 
 function AppLayout({ children }) {
   const { user } = useAuth();
   const isRoleOne = user?.role_id === '1';
+  const isRoleTwoOrThreeOrFour = user?.role_id >= '2' && user?.role_id <= '4';
 
   return (
-    <div className="flex">
-      {isRoleOne ? <NavBarHrManager /> : <NavBarapp />}
-      <div className="flex-1 ml-64 p-4">{children}</div>
+    <div className="flex flex-col min-h-screen">
+      {/* Conditional Navbar Rendering */}
+      {isRoleOne && <NavBarHrManager />}
+      {isRoleTwoOrThreeOrFour && <NavBarapp />}
+      {!isRoleOne && !isRoleTwoOrThreeOrFour && (
+        <NavBarTop />
+      )}
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 ${isRoleOne || isRoleTwoOrThreeOrFour ? 'ml-64' : ''} ${
+          !isRoleOne && !isRoleTwoOrThreeOrFour ? 'mt-10' : ''
+        }`}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -47,6 +64,8 @@ function App() {
             <Route element={<PrivateRoute allowedRoles={['1']} />}>
               <Route path="/contact" element={<Contact />} />
               <Route path="/AllEmployees" element={<AllEmploees />} />
+              <Route path="/ReportingModule" element={<Reportingmodule />} />
+
             </Route>
 
             {/* Routes accessible by all authenticated users */}
@@ -55,7 +74,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/Error" element={<Error />} />
             <Route path="/Leave" element={<Leave />} />
-            <Route path="/LeaveRequest" element={<LeaveRequest />} />
+            <Route path="/Leave Request" element={<LeaveRequest />} />
             <Route path="/FillEmployeeDetails" element={<Fillemployeedetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/newLogin" element={<CreateUserAccount />} />
@@ -67,12 +86,14 @@ function App() {
             <Route path="/View_salary" element={<SalaryHistory />} />
             <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
             <Route path='/createonlyloginpage' element={<Newloginpage />} />
-            <Route path="/ReportingModule" element={<Reportingmodule />} />
+
 
             {/* Catch-all for unknown routes */}
             <Route path="*" element={<Error />} />
           </Routes>
         </AppLayout>
+
+
       </Router>
     </AuthProvider>
   );
