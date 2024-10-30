@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 function EmploymentDetails() {
   const [data, setData] = useState([]);
@@ -7,19 +8,19 @@ function EmploymentDetails() {
   const employee_id = user?.employee_id;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/EmployementDetails/${employee_id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
+    const fetchEmploymentDetails = async () => {
+        if (!employee_id) return; // Ensure employee_id is available
+        try {
+            const response = await api.get(`/api/EmployementDetails/${employee_id}`);
+            console.log("Fetched employment data:", response.data);
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching employment data:", error);
         }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Fetched employment data:", data);
-        setData(data);
-      })
-      .catch((err) => console.log("Error fetching employment data:", err));
-  }, [employee_id]);
+    };
+
+    fetchEmploymentDetails();
+}, [employee_id]);
   return (
     <div className="container mx-auto p-4">
       {data.length > 0 ? (

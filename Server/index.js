@@ -72,14 +72,18 @@ const checkHRManager = (req, res, next) => {
   return res.status(403).json({ message: 'Forbidden' });
 }
 
-app.use('/api/employee', checkAuth, checkHRManager, employeeRoute)
+app.use('/api/employee', checkAuth, checkHRManager, employeeRoute);
+app.use('/api/employeeMoreInfo', checkAuth, checkHRManager, employeeMoreInfoRoute);
+
+app.use('/api/approveLeave', approveLeaveRequest);
+
 
 //---------------------------------------------------------------------------------------------leave details
 
-app.use('/api/Createleave',createleaveRoutes); // Use the leave routes
-app.use('/api/Viewleave',getleaverequestusingleave_id); // Use the leave routes
-app.use('/api/Loadleave',loadleavebyemployee_id)
-app.use( '/api/Deleteleave',deleteleavebyleave_id)
+app.use('/api/Createleave', checkAuth,createleaveRoutes); // Use the leave routes
+app.use('/api/Viewleave',checkAuth,getleaverequestusingleave_id); // Use the leave routes
+app.use('/api/Loadleave', checkAuth,loadleavebyemployee_id)
+app.use( '/api/Deleteleave', checkAuth,deleteleavebyleave_id)
 
 //---------------------------------------------------------------------------------------------login & create accounts
 
@@ -88,12 +92,14 @@ app.use( '/api/Deleteleave',deleteleavebyleave_id)
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
 
+
 //-------------------------------------------------------------------supervisor
 app.use('/api/approveLeave', approveLeaveRequest);
 app.use('/api/ChangeStatusapproveLeave', updatestatusleave);
 //-------------------------------------------------------------------
 
 app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
+
 app.get('/gen',gen);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
@@ -103,13 +109,14 @@ app.get('/gen',gen);
 
 //-------------------------------------------------------------------------Get Login profile Details 
 app.use("/api/Nationality", nationality);
-app.use("/api/PayGrade", paygradedetails);
-app.use("/api/EmergencyContact", emergencycontactdetailsprofile);
-app.use("/api/PersonalDetails", personalDetails);
-app.use("/api/EmployementDetails", employmentdetails);
+
+app.use("/api/PayGrade", checkAuth,paygradedetails);
+app.use("/api/EmergencyContact", checkAuth, emergencycontactdetailsprofile);
+app.use("/api/PersonalDetails", checkAuth,  personalDetails);
+app.use("/api/EmployementDetails", checkAuth, employmentdetails);
 
 
-app.use("/api/Salary_Record", SalaryRecords);
+app.use("/api/Salary_Record",checkAuth, SalaryRecords);
 
 
 //---------------------------------------------------------------------------------------------------Reporting module

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 function PersonalDetails() {
 
@@ -8,19 +9,24 @@ function PersonalDetails() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/api/PersonalDetails/${employee_id}`)
-      .then((res) => {
-        if (!res.ok) {
+    const fetchPersonalDetails = async () => {
+      if (!employee_id) return; // Ensure employee_id is available before making the request
+      try {
+        const response = await api.get(`/api/PersonalDetails/${employee_id}`); // Use custom API instance
+        if (response.status !== 200) {
           throw new Error("Failed to fetch data");
         }
-        return res.json();
-      })
-      .then((data) => {
+        const data = response.data;
         console.log("Fetched data:", data);
         setData(data);
-      })
-      .catch((err) => console.log("Error fetching data:", err));
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchPersonalDetails();
   }, [employee_id]);
+
 
   
 

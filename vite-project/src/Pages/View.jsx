@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import api from "../config";
 
 const View = () => {
   const [user, setUser] = useState({});
@@ -8,16 +9,18 @@ const View = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/Viewleave/${id}`)
-      .then((resp) => {
-        setUser({ ...resp.data[0] });
-        setIsLoading(false);
-      })
-      .catch((error) => {
+    const fetchLeaveRequestData = async () => {
+      try {
+        const response = await api.get(`/api/Viewleave/${id}`); // Use the configured Axios instance
+        setUser({ ...response.data[0] });
+      } catch (error) {
         console.error("Error fetching leave request data:", error);
-        setIsLoading(false);
-      });
+      } finally {
+        setIsLoading(false); // Set loading to false after request completes
+      }
+    };
+
+    fetchLeaveRequestData(); // Call the fetch function
   }, [id]);
 
   const formatDate = (dateString) => {
