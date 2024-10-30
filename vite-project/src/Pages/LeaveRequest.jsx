@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
 import { useAuth } from "../contexts/AuthContexts";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import api from "../config"; // Import the configured axios instance
 
 const initialState = {
   leave_type: "",
@@ -23,37 +25,51 @@ const LeaveRequest = () => {
     setState({ ...state, [name]: value });
   };
 
-
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:5000/api/leave/${user.employee_id}`)
-  //     .then((resp) => setState({ ...resp.data[0] }));
-  // }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!leave_type || !from_date || !to_date || !leave_reason) {
+      toast.error("Please fill in all required fields");
       return;
     }
 
     const formattedFromDate = new Date(from_date).toISOString().split("T")[0];
     const formattedToDate = new Date(to_date).toISOString().split("T")[0];
-    console.log(formattedFromDate,leave_type);
-    axios
-      .post("http://localhost:5000/api/Createleave/", {
+
+    try {
+      await api.post("/api/Createleave/", {
         id: user.employee_id,
         leave_type,
         from_date: formattedFromDate,
         to_date: formattedToDate,
         leave_reason,
-      })
-      .then(() => {
-        setState(initialState);
-      })
-      .catch((err) => toast.error(err.response.data));
-    setTimeout(() => navigate("/Leave"), 500);
+      });
+      
+      setState(initialState);
+      toast.success("Leave request submitted successfully");
+      
+      // Use navigate after the request is successful
+      navigate("/Leave");
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || "Error submitting leave request";
+      toast.error(errorMessage);
+      console.error("Error submitting leave request:", err);
+    }
   };
+
+  // Optionally fetch existing leave data
+  // useEffect(() => {
+  //   const fetchLeaveData = async () => {
+  //     try {
+  //       const response = await api.get(`/api/leave/${user.employee_id}`);
+  //       setState({ ...response.data[0] });
+  //     } catch (err) {
+  //       console.error("Error fetching leave data:", err);
+  //       toast.error("Error loading leave data");
+  //     }
+  //   };
+  //   fetchLeaveData();
+  // }, [user.employee_id]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300">

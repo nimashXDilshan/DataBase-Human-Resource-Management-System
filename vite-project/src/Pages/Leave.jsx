@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 const Leave = () => {
   const [data, setData] = useState([]);
@@ -15,33 +16,32 @@ const Leave = () => {
 
   const loadData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/Loadleave/${employee_id}`);
-      setData(response.data);
-      setRequestedLeaves(response.data.length);
-      setRemainingLeaves(50 - approvedLeaves); // Recalculate remaining leaves
+        const response = await api.get(`/api/Loadleave/${employee_id}`); // Use the Axios instance
+        setData(response.data);
+        setRequestedLeaves(response.data.length);
+        setRemainingLeaves(50 - approvedLeaves); // Recalculate remaining leaves
     } catch (error) {
-      console.error("Error loading data:", error);
-      toast.error("Error loading leaves data. Please try again."); // Handle error notification
+        console.error("Error loading data:", error);
+        toast.error("Error loading leaves data. Please try again."); // Handle error notification
     }
-  };
+};
 
-  useEffect(() => {
-    loadData();
-  }, [employee_id]);
+useEffect(() => {
+    loadData(); // Call loadData when employee_id changes
+}, [employee_id]);
 
-  
-  const deleteContent = async (id) => {
+const deleteContent = async (id) => {
     if (window.confirm("Are you sure that you want to delete this content?")) {
-      try {
-        await axios.delete(`http://localhost:5000/api/Deleteleave/${id}`);
-        toast.success("Content deleted successfully");
-        loadData(); // Refresh data after deletion
-      } catch (error) {
-        toast.error("Error deleting content. Please try again.");
-        console.error("Error deleting content:", error);
-      }
+        try {
+            await api.delete(`/api/Deleteleave/${id}`); // Use the Axios instance
+            toast.success("Content deleted successfully");
+            loadData(); // Refresh data after deletion
+        } catch (error) {
+            toast.error("Error deleting content. Please try again.");
+            console.error("Error deleting content:", error);
+        }
     }
-  };
+};
 
   const formatDate = (dateTimeString) => {
     const date = new Date(dateTimeString);

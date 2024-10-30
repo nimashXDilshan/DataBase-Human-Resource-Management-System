@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContexts";
 import { useNavigate } from "react-router-dom";
+import api from "../config";
 
 
 const PayGradeDetails = () => {
@@ -14,19 +15,20 @@ const PayGradeDetails = () => {
     const [error, setError] = useState(null);
     useEffect(() => {
         const fetchPayGrade = async () => {
+            if (!employee_id) return; // Ensure employee_id is available before making the request
             try {
-                const response = await axios.get(`http://localhost:5000/api/PayGrade/${employee_id}`);
+                const response = await api.get(`/api/PayGrade/${employee_id}`); // Use the Axios instance
                 console.log("Pay Grade Response:", response.data); // Log the response data
-                setPayGrade(response.data);
+                setPayGrade(response.data); // Update your state with the fetched pay grade data
             } catch (err) {
-                setError(err);
-                console.error("Error fetching pay grade:", err);
+                setError(err); // Set error state if an error occurs
+                console.error("Error fetching pay grade:", err); // Log the error
             } finally {
-                setLoading(false);
+                setLoading(false); // Set loading to false in either case
             }
         };
-        fetchPayGrade();
-    }, [employee_id]);
+        fetchPayGrade(); // Call the fetch function
+    }, [employee_id]); // Dependency array
 
     const handleViewSalary = () => {
         navigate("/View_salary");

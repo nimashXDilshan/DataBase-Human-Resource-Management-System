@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 function PersonalDetails() {
 
@@ -8,18 +9,17 @@ function PersonalDetails() {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/api/PersonalDetails/${employee_id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log("Fetched data:", data);
-        setData(data);
-      })
-      .catch((err) => console.log("Error fetching data:", err));
+    const fetchPersonalDetails = async () => {
+      try {
+        const response = await api.get(`/api/PersonalDetails/${employee_id}`); // Use the Axios instance
+        console.log("Fetched data:", response.data);
+        setData(response.data);
+      } catch (err) {
+        console.error("Error fetching data:", err); // Log the error
+      }
+    };
+
+    fetchPersonalDetails(); // Call the fetch function
   }, [employee_id]);
 
   

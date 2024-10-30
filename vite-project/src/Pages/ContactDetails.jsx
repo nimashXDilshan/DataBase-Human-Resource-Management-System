@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 function ContactDetails() {
     const [contacts, setContacts] = useState([]);
@@ -11,19 +12,20 @@ function ContactDetails() {
 
   useEffect(() => {
     const fetchEmergencyContacts = async () => {
-        if (!employee_id) return; // Ensure employee_id is available before making the request
-        try {
-            const response = await axios.get(`http://localhost:5000/api/EmergencyContact/${employee_id}`); // Use backticks for string interpolation
-            setContacts(response.data); // Set the contacts state with the fetched data
-        } catch (err) {
-            setError(err); // Set error state if an error occurs
-            console.error("Error fetching emergency contacts:", err); // Log the error
-        } finally {
-            setLoading(false); // Set loading to false in either case
-        }
+      if (!employee_id) return; // Ensure employee_id is available before making the request
+      try {
+        const response = await api.get(`/api/EmergencyContact/${employee_id}`); // Use the Axios instance
+        setContacts(response.data); // Set the contacts state with the fetched data
+      } catch (err) {
+        setError(err); // Set error state if an error occurs
+        console.error("Error fetching emergency contacts:", err); // Log the error
+      } finally {
+        setLoading(false); // Set loading to false in either case
+      }
     };
+
     fetchEmergencyContacts(); // Call the fetch function
-}, [employee_id]); // Dependency array
+  }, [employee_id]); // Dependency array
 
     if (loading) return <div>Loading emergency contact details...</div>;
     if (error) return <div>Error: {error.message}</div>;
