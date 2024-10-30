@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 const SalaryHistory = () => {
   const [salaryData, setSalaryData] = useState([]); // State to hold salary records
@@ -17,12 +18,8 @@ const SalaryHistory = () => {
 
       try {
         setLoading(true); // Set loading to true before fetching
-        const response = await fetch(`http://localhost:5000/api/Salary_Record/${employee_id}`); // Fetch from your API
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json(); // Parse JSON data
-        setSalaryData(data); // Set salary data to state
+        const response = await api.get(`/api/Salary_Record/${employee_id}`); // Use the configured Axios instance
+        setSalaryData(response.data); // Set salary data to state
       } catch (error) {
         setError(error.message); // Set error message
         console.error("Failed to fetch salary data:", error);
@@ -32,7 +29,7 @@ const SalaryHistory = () => {
     };
 
     fetchSalaryData(); // Call the fetch function
-  }, [employee_id]); 
+  }, [employee_id]);
 
   // Handle navigation back to profile
   const handleBackToProfile = () => {

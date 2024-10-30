@@ -38,10 +38,14 @@ function App() {
               <Route element={<PrivateRoute allowedRoles={['1']} />}>
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/AllEmployees" element={<AllEmploees />} />
-                <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
+
 
 
               </Route>
+
+              <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
+
+
 
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
