@@ -23,6 +23,7 @@ import AllEmploees from './Pages/AllEmployees';
 import { AuthProvider } from './contexts/AuthContexts';
 import PrivateRoute from './contexts/PrivateRoute';
 import SalaryHistory from './Pages/View_salary';
+import Reportingmodule from './Pages/ReportingModule';
 
 // App.js
 function App() {
@@ -58,6 +59,7 @@ function App() {
               <Route path="/update/:id" element={<LeaveRequest />} />
               <Route path="/view/:id" element={<View />} />
               <Route path="/View_salary" element={<SalaryHistory />} />
+              <Route path="/ReportingModule" element={<Reportingmodule />} />
             </Routes>
           </div>
         </div>
