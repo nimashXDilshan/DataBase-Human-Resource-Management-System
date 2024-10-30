@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContexts";
+
 function ContactDetails() {
     const [contacts, setContacts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    useEffect(() => {
-        const fetchEmergencyContacts = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/EmergencyContact");
-                setContacts(response.data);
-            } catch (err) {
-                setError(err);
-                console.error("Error fetching emergency contacts:", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchEmergencyContacts();
-    }, []);
+    const { user } = useAuth(); // Retrieve user object from AuthContext
+    const employee_id = user?.employee_id; 
+
+  useEffect(() => {
+    const fetchEmergencyContacts = async () => {
+        if (!employee_id) return; // Ensure employee_id is available before making the request
+        try {
+            const response = await axios.get(`http://localhost:5000/api/EmergencyContact/${employee_id}`); // Use backticks for string interpolation
+            setContacts(response.data); // Set the contacts state with the fetched data
+        } catch (err) {
+            setError(err); // Set error state if an error occurs
+            console.error("Error fetching emergency contacts:", err); // Log the error
+        } finally {
+            setLoading(false); // Set loading to false in either case
+        }
+    };
+    fetchEmergencyContacts(); // Call the fetch function
+}, [employee_id]); // Dependency array
+
     if (loading) return <div>Loading emergency contact details...</div>;
     if (error) return <div>Error: {error.message}</div>;
     return (
@@ -36,7 +43,7 @@ function ContactDetails() {
                         <tr>
                             <th className="p-4 text-left bg-gray-100">Emergency Contact Person</th>
                             {contacts.map((contact, i) => (
-                                <td key={i} className="p-4 text-left">{contact.contact_name}</td>
+                                <td key={i} className="p-4 text-left">{contact.name}</td>
                             ))}
                         </tr>
                         {/* Row for Address */}

@@ -3,7 +3,9 @@ import db from "../config/db.js";
 
 // Fetch a specific employee by ID
 export const getEmployee = (req, res) => {
-  const employeeId = req.params.id || 2; // Replace with dynamic value if needed
+
+  const employeeId = req.params.employee_id; // Replace with dynamic value if needed
+
   const sql = "SELECT * FROM Employee WHERE employee_id = ?";
 
   db.query(sql, [employeeId], (err, data) => {
@@ -105,4 +107,7 @@ export const getEmergencyContact = (req, res) => {
     }
     res.json(results);
   });
+
 };
+
+

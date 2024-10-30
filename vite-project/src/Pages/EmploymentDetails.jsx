@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContexts";
+
 function EmploymentDetails() {
   const [data, setData] = useState([]);
+  const { user } = useAuth(); // Retrieve user object from AuthContext
+  const employee_id = user?.employee_id;
+
   useEffect(() => {
-    fetch("http://localhost:5000/api/Employee/")
+    fetch(`http://localhost:5000/api/EmployementDetails/${employee_id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch data");
@@ -14,7 +19,7 @@ function EmploymentDetails() {
         setData(data);
       })
       .catch((err) => console.log("Error fetching employment data:", err));
-  }, []);
+  }, [employee_id]);
   return (
     <div className="container mx-auto p-4">
       {data.length > 0 ? (

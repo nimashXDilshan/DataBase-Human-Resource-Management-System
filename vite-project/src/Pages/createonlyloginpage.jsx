@@ -20,7 +20,7 @@ const Login = () => {
         setSuccess('Login successful! Redirecting...');
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        window.location.href = '/dashboard1';
+        window.location.href = '/dashboard';
       }
     } catch (error) {
       if (error.response) {

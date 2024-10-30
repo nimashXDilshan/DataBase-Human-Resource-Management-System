@@ -1,14 +1,18 @@
 import db from "../config/db.js";
 
+
 export const getAllLeaveRequests = (req, res) => {
   const sqlGet = "call getLeaveData()";
   db.query(sqlGet, (error, result) => {
+
     if (error) {
+      console.error("Error retrieving leave requests:", error); // Log the error for debugging
       return res.status(500).send("Error retrieving leave requests");
     }
     res.send(result[0]);
   });
 };
+
 
 export const createLeaveRequest = (req, res) => {
   const { leave_type, from_date, to_date, leave_reason, id} = req.body;
@@ -51,22 +55,4 @@ export const getLeaveRequestById = (req, res) => {
 };
 
 
-export const updateLeaveRequest = (req, res) => {
-  const { id } = req.params;
-  const { leave_type, from_date, to_date, leave_reason } = req.body;
-  const sqlUpdate = "UPDATE leave_request SET leave_type = ?, from_date = ?, to_date = ?, leave_reason = ? WHERE id = ?";
-
-  db.query(sqlUpdate, [leave_type, from_date, to_date, leave_reason, id], (error, result) => {
-    if (error) {
-      console.error("Error updating leave request:", error);
-      return res.status(500).json({ message: "Error updating leave request" });
-    }
-
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Leave request not found" });
-    }
-
-    res.status(200).json({ message: "Leave request updated successfully" });
-  });
-};
 

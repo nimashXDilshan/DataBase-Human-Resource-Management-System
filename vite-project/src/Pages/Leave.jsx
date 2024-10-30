@@ -2,29 +2,40 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useAuth } from "../contexts/AuthContexts";
 
 const Leave = () => {
   const [data, setData] = useState([]);
-  const [requestedLeaves, setRequestedLeaves] = useState(1);
-  const [approvedLeaves, setApprovedLeaves] = useState(1); // Should come from admin pages.
-  const [remainingLeaves, setRemainingLeaves] = useState(50 - approvedLeaves);
+  const [requestedLeaves, setRequestedLeaves] = useState(0);
+  const [approvedLeaves, setApprovedLeaves] = useState(1); // Should come from admin pages
+  const [remainingLeaves, setRemainingLeaves] = useState(49); // Assuming a total of 50 leaves
+
+  const { user } = useAuth(); // Retrieve user object from AuthContext
+  const employee_id = user?.employee_id;
 
   const loadData = async () => {
-    const response = await axios.get("http://localhost:5000/api/leave");
-    setData(response.data);
-    setRequestedLeaves(response.data.length);
+    try {
+      const response = await axios.get(`http://localhost:5000/api/Loadleave/${employee_id}`);
+      setData(response.data);
+      setRequestedLeaves(response.data.length);
+      setRemainingLeaves(50 - approvedLeaves); // Recalculate remaining leaves
+    } catch (error) {
+      console.error("Error loading data:", error);
+      toast.error("Error loading leaves data. Please try again."); // Handle error notification
+    }
   };
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [employee_id]);
 
+  
   const deleteContent = async (id) => {
     if (window.confirm("Are you sure that you want to delete this content?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/leave/${id}`);
+        await axios.delete(`http://localhost:5000/api/Deleteleave/${id}`);
         toast.success("Content deleted successfully");
-        setTimeout(() => loadData(), 500);
+        loadData(); // Refresh data after deletion
       } catch (error) {
         toast.error("Error deleting content. Please try again.");
         console.error("Error deleting content:", error);
@@ -98,23 +109,13 @@ const Leave = () => {
 
           <tbody className="bg-white divide-y divide-gray-200">
             {data.slice(0).reverse().map((item, index) => (
-              <tr key={item.id} className="hover:bg-gray-100 transition duration-300">
-                <td className="py-3 px-4 text-center font-medium text-gray-700">
-                  {index + 1}
-                </td>
+              <tr key={item.leave_id} className="hover:bg-gray-100 transition duration-300">
+                <td className="py-3 px-4 text-center font-medium text-gray-700">{index + 1}</td>
                 <td className="py-3 px-4 text-center">{item.leave_type}</td>
                 <td className="py-3 px-4 text-center">{formatDate(item.from_date)}</td>
                 <td className="py-3 px-4 text-center">{formatDate(item.to_date)}</td>
                 <td className="py-3 px-4 text-center">{item.leave_reason}</td>
-                {/* <td className="py-3 px-4 text-center">
-                  {item.leave_reason.length > 20 ? `${item.leave_reason.slice(0, 20)}...` : item.leave_reason}
-                </td> */}
                 <td className="py-3 px-4 text-center space-x-3">
-                  <Link to={`/update/${item.leave_id}`}>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                      Edit
-                    </button>
-                  </Link>
                   <button
                     className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
                     onClick={() => deleteContent(item.leave_id)}
