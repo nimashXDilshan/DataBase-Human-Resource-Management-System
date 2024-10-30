@@ -101,7 +101,7 @@ app.use("/api/PersonalDetails", checkAuth,  personalDetails);
 app.use("/api/EmployementDetails", checkAuth, employmentdetails);
 
 
-app.use("/api/Salary_Record", SalaryRecords);
+app.use("/api/Salary_Record",checkAuth, SalaryRecords);
 
 
 //---------------------------------------------------------------------------------------------------
