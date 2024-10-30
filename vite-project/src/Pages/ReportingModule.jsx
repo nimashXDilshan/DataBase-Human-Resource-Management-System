@@ -4,6 +4,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import api from "../config";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 function ReportingModule() {
@@ -22,33 +23,30 @@ function ReportingModule() {
 
   // Fetch employee data
   useEffect(() => {
-    fetch("http://localhost:5000/api/employeedepartment")
-      .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
-      .then((data) => setEmployeeData1(data))
+    api.get("api/employeedepartment")
+      .then((res) => setEmployeeData1(res.data))
       .catch((err) => console.log('Fetch error:', err));
   }, []);
-
+  
   // Fetch leave data
   useEffect(() => {
-    fetch("http://localhost:5000/api/total_leaves")
-      .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
-      .then((data) => setLeaveData(data))
+    api.get("api/total_leaves")
+      .then((res) => setLeaveData(res.data))
       .catch((err) => console.log("Fetch error:", err));
   }, []);
-
+  
   // Fetch employee details by role
   useEffect(() => {
-    fetch("http://localhost:5000/api/employees_by_role")
-      .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
-      .then((data) => setRoleData(data))
+    api.get("api/employees_by_role")
+      .then((res) => setRoleData(res.data))
       .catch((err) => console.log("Fetch error:", err));
   }, []);
-
+  
+  // Fetch employee report
   useEffect(() => {
-    fetch("http://localhost:5000/api/employee_report")
-      .then((res) => res.json())
-      .then((data) => setEmployeeReport(data))
-      .catch((err) => console.log(err));
+    api.get("api/employee_report")
+      .then((res) => setEmployeeReport(res.data))
+      .catch((err) => console.log("Fetch error:", err));
   }, []);
 
   // Filtered data based on department selection

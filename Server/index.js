@@ -3,7 +3,6 @@ import cors from 'cors';
 import mysql2 from 'mysql2';
 import bodyParser from 'body-parser';
 
-import createUserAccount from './routes/CreateUserAccountRoute.js';
 import loginAcconut from './routes/loginAcconutRoutes.js';
 import db from './config/db.js';
 import employeeRoute from './routes/employeeRoute.js'
@@ -75,7 +74,7 @@ const checkHRManager = (req, res, next) => {
 app.use('/api/employee', checkAuth, checkHRManager, employeeRoute);
 app.use('/api/employeeMoreInfo', checkAuth, checkHRManager, employeeMoreInfoRoute);
 
-app.use('/api/approveLeave', approveLeaveRequest);
+app.use('/api/approveLeave',checkAuth, approveLeaveRequest);
 
 
 //---------------------------------------------------------------------------------------------leave details
@@ -89,16 +88,15 @@ app.use( '/api/Deleteleave', checkAuth,deleteleavebyleave_id)
 
 
 
-app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
 
 
 //-------------------------------------------------------------------supervisor
-app.use('/api/approveLeave', approveLeaveRequest);
-app.use('/api/ChangeStatusapproveLeave', updatestatusleave);
+app.use('/api/approveLeave',checkAuth, approveLeaveRequest);
+app.use('/api/ChangeStatusapproveLeave',checkAuth, updatestatusleave);
 //-------------------------------------------------------------------
 
-app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
+app.use('/api/employeeMoreInfo',checkAuth, employeeMoreInfoRoute);
 
 app.get('/gen',gen);
 
@@ -120,10 +118,10 @@ app.use("/api/Salary_Record",checkAuth, SalaryRecords);
 
 
 //---------------------------------------------------------------------------------------------------Reporting module
-app.use("/api/employeedepartment", reportingEmployeedepartment);
-app.use("/api/total_leaves", reportingLeaves);
-app.use("/api/employees_by_role", reportingrole);
-app.use("/api/employee_report", reportingreport);
+app.use("/api/employeedepartment",checkAuth, checkHRManager, reportingEmployeedepartment);
+app.use("/api/total_leaves",checkAuth, checkHRManager, reportingLeaves);
+app.use("/api/employees_by_role",checkAuth, checkHRManager, reportingrole);
+app.use("/api/employee_report",checkAuth, checkHRManager, reportingreport);
 
 
 

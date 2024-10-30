@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 const SideNavBar = () => {
   const { user, logout } = useAuth();
@@ -70,6 +71,12 @@ const SideNavBar = () => {
           icon={AccountCircleIcon} 
           label="Profile" 
           to="/profile" 
+        />
+        {/* Reports Section */}
+        <NavItem 
+          icon={BarChartIcon} 
+          label="Reports" 
+          to="/ReportingModule" 
         />
       </div>
 

@@ -10,13 +10,9 @@ import Error from './Pages/Error';
 import Leave from './Pages/Leave';
 import LeaveRequest from './Pages/LeaveRequest';
 import View from './Pages/View';
-import Fillemployeedetails from './Pages/FillEmployeeDetails';
 import Profile from './Pages/profile';
-import CreateUserAccount from './Pages/newLogin';
 import Newloginpage from './Pages/createonlyloginpage';
-import SuccessPage from './Pages/successfullyaddedemployeepage';
 import Dashboard from './Pages/dashboard';
-import LeaveRequestApprovedPart from './Pages/LeaveRequestApprove';
 import SupervisorLeaveApprove from './Pages/ApproveLeaveSupervisor';
 import AllEmploees from './Pages/AllEmployees';
 import { AuthProvider, useAuth } from './contexts/AuthContexts';
@@ -75,12 +71,8 @@ function App() {
             <Route path="/Error" element={<Error />} />
             <Route path="/Leave" element={<Leave />} />
             <Route path="/Leave Request" element={<LeaveRequest />} />
-            <Route path="/FillEmployeeDetails" element={<Fillemployeedetails />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/newLogin" element={<CreateUserAccount />} />
-            <Route path="/successfullyaddedemployeepage" element={<SuccessPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/LeaveRequestApprove" element={<LeaveRequestApprovedPart />} />
             <Route path="/update/:id" element={<LeaveRequest />} />
             <Route path="/view/:id" element={<View />} />
             <Route path="/View_salary" element={<SalaryHistory />} />

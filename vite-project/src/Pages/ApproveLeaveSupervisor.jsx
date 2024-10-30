@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContexts";
+import api from "../config";
 
 const LeaveRequestsApprover = () => {
   const [requests, setRequests] = useState([]);
@@ -12,12 +13,12 @@ const LeaveRequestsApprover = () => {
   // Function to fetch leave requests
   const showRequest = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/approveLeave/${employee_id}`);
+      const res = await api.get(`/api/approveLeave/${employee_id}`);
       setRequests(res.data || []);
     } catch (err) {
       // Log the error details for debugging
       console.error("Error fetching leave requests:", err);
-
+  
       // Handle different types of errors
       if (err.response) {
         console.error("Response data:", err.response.data);
@@ -41,8 +42,8 @@ const LeaveRequestsApprover = () => {
   // Function to update the status and remove the request from the list
   const updateStatus = async (leave_id, leave_status) => {
     try {
-      await axios.put(`http://localhost:5000/api/ChangeStatusapproveLeave/${leave_id}`, { leave_status });
-
+      await api.put(`/api/ChangeStatusapproveLeave/${leave_id}`, { leave_status });
+  
       // Update the state to remove the request
       setRequests((prevRequests) => prevRequests.filter(request => request.leave_id !== leave_id));
     } catch (error) {
