@@ -1,12 +1,12 @@
 import express from 'express';
 import { 
-  getAllLeaveRequestEmployeeId, 
+  getLeaveRequestById, 
   
 } from '../controllers/leaveRequestController.js';
 
 
 const router = express.Router();
 
-router.get('/:employee_id', getAllLeaveRequestEmployeeId);
+router.get('/:employee_id', getLeaveRequestById);
 
 export default router;
