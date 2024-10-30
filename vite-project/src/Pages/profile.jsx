@@ -4,23 +4,25 @@ import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
 import EmploymentDetails from './EmploymentDetails';
 import PayGradeDetails from './PayGradeDetails';
-import { useAuth } from "../contexts/AuthContexts";
+import { useAuth } from '../contexts/AuthContexts';
+import { AppBar, Tabs, Tab, Box, Typography, CircularProgress, Paper } from '@mui/material';
+import { PersonOutline } from '@mui/icons-material';
 
 function Profile1() {
-  const { user } = useAuth(); // Retrieve user object from AuthContext
-  const employee_id = user?.employee_id; // Get employee_id from user object
+  const { user } = useAuth();
+  const employee_id = user?.employee_id;
 
   const [fullName, setFullName] = useState('');
   const [nationality, setNationality] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     const fetchNationality = async () => {
-      if (!employee_id) return; // Ensure employee_id is available before making the request
+      if (!employee_id) return;
       try {
         const response = await axios.get(`http://localhost:5000/api/Nationality/${employee_id}`);
-        const data = response.data[0]; // Assuming the response is an array
+        const data = response.data[0];
         setFullName(`${data.first_name} ${data.middle_name || ''} ${data.last_name}`);
         setNationality(data.country);
       } catch (err) {
@@ -34,52 +36,52 @@ function Profile1() {
   }, [employee_id]);
 
   const tabs = [
-    { name: 'Personal', component: <PersonalDetails /> },
+    { name: 'Personal', component: <PersonalDetails fullName={fullName} nationality={nationality} /> },
     { name: 'Contacts', component: <ContactDetails /> },
     { name: 'Employment', component: <EmploymentDetails /> },
     { name: 'Pay Grade', component: <PayGradeDetails /> },
   ];
 
   const [activeTab, setActiveTab] = useState(0);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  
+  if (loading) return <div className="flex justify-center items-center h-screen"><CircularProgress /></div>;
+  if (error) return <div className="text-center text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="flex items-start justify-between h-screen p-8 bg-gray-100">
-      {/* Left Section */}
-      <div className="w-4/12 flex flex-col items-center mt-24">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          alt="profile for user"
-          className="w-36 h-36 object-cover transition-transform transform hover:scale-110 border-4 border-blue-500 rounded-full duration-300"
-        />
-        <div className="flex flex-col items-center mt-4 bg-gradient-to-r from-blue-500 to-blue-300 p-4 rounded-lg shadow-lg border border-gray-300 hover:shadow-xl transition-shadow duration-300">
-          <span className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">{fullName}</span>
-          <span className="text-lg font-medium text-gray-600 mt-1 hover:text-blue-500 transition-colors duration-300">{nationality}</span>
+    <div className="min-h-screen p-6 bg-[#F4F4F4]">
+      {/* Profile Header */}
+      <Paper elevation={3} className="bg-[#FFFFFF] shadow-lg rounded-lg p-6 flex items-center space-x-4 mb-6">
+        <PersonOutline fontSize="large" className="text-[#11182a]" />
+        <div>
+          <Typography variant="h4" className="font-bold text-[#11182a] hover:text-[#73EC8B] transition duration-300">{fullName}</Typography>
+          <Typography variant="subtitle1" className="text-gray-600">{nationality}</Typography>
         </div>
-      </div>
+      </Paper>
 
-      <div className="w-8/12 border-l border-gray-300 flex flex-col justify-start ml-28">
-        <div className="flex mb-6">
-          {tabs.map((tab, index) => (
-            <div
-              key={index}
-              className={`min-w-[200px] p-3 text-center cursor-pointer transition-colors duration-300 ${
-                activeTab === index
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-black hover:bg-blue-300 hover:text-white'
-              }`}
-              onClick={() => setActiveTab(index)}
-            >
-              {tab.name}
-            </div>
-          ))}
-        </div>
+      {/* Tabs Section */}
+      <Box sx={{ width: '100%', mb: 4 }}>
+        <AppBar position="static" sx={{ backgroundColor: '#11182a', borderRadius: '10px', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)' }}>
+          <Tabs 
+            value={activeTab} 
+            onChange={(event, newValue) => setActiveTab(newValue)} 
+            textColor="inherit"
+            indicatorColor="secondary"
+          >
+            {tabs.map((tab, index) => (
+              <Tab 
+                key={index} 
+                label={tab.name} 
+                className="font-bold text-lg hover:bg-[#73EC8B] rounded-lg transition duration-300" 
+              />
+            ))}
+          </Tabs>
+        </AppBar>
+      </Box>
 
-        <div className="p-4 transition-all duration-300 ease-in-out">
-          {tabs[activeTab].component}
-        </div>
-      </div>
+      {/* Tab Content */}
+      <Box sx={{ p: 4, backgroundColor: '#FFFFFF', borderRadius: '10px', boxShadow: 2 }}>
+        {tabs[activeTab].component}
+      </Box>
     </div>
   );
 }
