@@ -7,6 +7,8 @@ import PayGradeDetails from './PayGradeDetails';
 import { useAuth } from '../contexts/AuthContexts';
 import { AppBar, Tabs, Tab, Box, Typography, CircularProgress, Paper } from '@mui/material';
 import { PersonOutline } from '@mui/icons-material';
+import { useAuth } from "../contexts/AuthContexts";
+import api from '../config';
 
 function Profile1() {
   const { user } = useAuth();

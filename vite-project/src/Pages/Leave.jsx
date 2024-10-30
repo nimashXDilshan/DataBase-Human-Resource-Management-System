@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../contexts/AuthContexts";
 import api from "../config";
+import api from "../config";
 
 const Leave = () => {
   const [data, setData] = useState([]);

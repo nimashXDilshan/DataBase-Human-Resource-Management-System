@@ -10,17 +10,23 @@ function PersonalDetails() {
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchPersonalDetails = async () => {
+      if (!employee_id) return; // Ensure employee_id is available before making the request
       try {
-        const response = await api.get(`/api/PersonalDetails/${employee_id}`); // Use the Axios instance
-        console.log("Fetched data:", response.data);
-        setData(response.data);
+        const response = await api.get(`/api/PersonalDetails/${employee_id}`); // Use custom API instance
+        if (response.status !== 200) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = response.data;
+        console.log("Fetched data:", data);
+        setData(data);
       } catch (err) {
-        console.error("Error fetching data:", err); // Log the error
+        console.error("Error fetching data:", err);
       }
     };
 
-    fetchPersonalDetails(); // Call the fetch function
+    fetchPersonalDetails();
   }, [employee_id]);
+
 
   
 

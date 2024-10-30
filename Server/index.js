@@ -86,6 +86,7 @@ app.use('/api/login', loginAcconut);
 
 //-------------------------------------------------------------------
 
+
 app.get('/gen',gen);
 
 //app.use('/api/branch',BranchForFillEmployeeDetails)
@@ -95,8 +96,9 @@ app.get('/gen',gen);
 
 //-------------------------------------------------------------------------Get Login profile Details 
 app.use("/api/Nationality", nationality);
+
 app.use("/api/PayGrade", checkAuth,paygradedetails);
-app.use("/api/EmergencyContact", emergencycontactdetailsprofile);
+app.use("/api/EmergencyContact", checkAuth, emergencycontactdetailsprofile);
 app.use("/api/PersonalDetails", checkAuth,  personalDetails);
 app.use("/api/EmployementDetails", checkAuth, employmentdetails);
 

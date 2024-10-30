@@ -9,18 +9,18 @@ function EmploymentDetails() {
 
   useEffect(() => {
     const fetchEmploymentDetails = async () => {
-        if (!employee_id) return; // Ensure employee_id is available before making the request
+        if (!employee_id) return; // Ensure employee_id is available
         try {
-            const response = await api.get(`/api/EmployementDetails/${employee_id}`); // Use the Axios instance
-            console.log("Fetched employment data:", response.data); // Log the response data
-            setData(response.data); // Update your state with the fetched data
+            const response = await api.get(`/api/EmployementDetails/${employee_id}`);
+            console.log("Fetched employment data:", response.data);
+            setData(response.data);
         } catch (error) {
-            console.error("Error fetching employment data:", error); // Log the error
+            console.error("Error fetching employment data:", error);
         }
     };
 
-    fetchEmploymentDetails(); // Call the fetch function
-}, [employee_id]); // Dependency array
+    fetchEmploymentDetails();
+}, [employee_id]);
   return (
     <div className="container mx-auto p-4">
       {data.length > 0 ? (

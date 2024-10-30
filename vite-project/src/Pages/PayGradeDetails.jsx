@@ -17,7 +17,7 @@ const PayGradeDetails = () => {
         const fetchPayGrade = async () => {
             if (!employee_id) return; // Ensure employee_id is available before making the request
             try {
-                const response = await api.get(`/api/PayGrade/${employee_id}`); // Use the Axios instance
+                const response = await api.get(`/api/PayGrade/${employee_id}`); // Use custom API instance
                 console.log("Pay Grade Response:", response.data); // Log the response data
                 setPayGrade(response.data); // Update your state with the fetched pay grade data
             } catch (err) {
@@ -29,6 +29,7 @@ const PayGradeDetails = () => {
         };
         fetchPayGrade(); // Call the fetch function
     }, [employee_id]); // Dependency array
+    
 
     const handleViewSalary = () => {
         navigate("/View_salary");
