@@ -33,26 +33,7 @@ const addEmployee = async (req, res) => {
   }
 
   // Insert employee data
-  const queryEmployee = `
-    INSERT INTO employee (
-      employee_id,
-      first_name,
-      middle_name,
-      last_name,
-      birth_date,
-      gender,
-      marital_status,
-      company_work_email,
-      address,
-      tel_no,
-      recruitment_date,
-      section_id,
-      branch_id,
-      supervisor_id,
-      employment_status_id,
-      role_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  const queryEmployee = "call AddNewEmployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const employeeValues = [
     employeeId,
@@ -70,7 +51,10 @@ const addEmployee = async (req, res) => {
     branchID || null,
     supervisorID || null,
     employmentStatusID || null,
-    roleID || null
+    roleID || null,
+    emergencyContactName || null,
+    emergencyContactAddress || null,
+    emergencyContactPhone || null
   ];
 
 
@@ -147,13 +131,7 @@ const editEmployee = (req, res) => {
     roleID
   } = req.body;
 
-  const query = `
-    UPDATE employee 
-    SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, gender = ?, marital_status = ?, 
-    company_work_email = ?, address = ?, tel_no = ?, recruitment_date = ?, section_id = ?, branch_id = ?, 
-    supervisor_id = ?, employment_status_id = ?, role_id = ?
-    WHERE employee_id = ?
-  `;
+  const query = "call updateEmployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const values = [
     firstName,
@@ -191,9 +169,7 @@ const deleteEmployee = (req, res) => {
   console.log(id);
 
   // Check if the employee exists
-  const checkEmployeeQuery = `
-    SELECT * FROM employee WHERE employee_id = ?
-  `;
+  const checkEmployeeQuery = "call getEmployeeData(?)";
 
   db.query(checkEmployeeQuery, [id], (err, results) => {
     if (err) {
@@ -207,40 +183,17 @@ const deleteEmployee = (req, res) => {
 
     // Delete related records one by one
     const deleteRelatedRecords = () => {
-      const queries = [
-        'DELETE FROM leave_request WHERE employee_id = ?',
-        'DELETE FROM salary_record WHERE employee_id = ?',
-        'DELETE FROM approved_leaves WHERE Employee_ID = ?',
-        'DELETE FROM custom_employee_attributes WHERE employee_id = ?',
-        'DELETE FROM user_account WHERE employee_id = ?'
-      ];
-
-      const runQuery = (index) => {
-        if (index >= queries.length) {
-          // Now delete the employee after deleting related records
-          const deleteEmployeeQuery = 'DELETE FROM employee WHERE employee_id = ?';
-          db.query(deleteEmployeeQuery, [id], (err) => {
-            if (err) {
-              console.log(err);
-              return res.status(500).json({ message: 'Error deleting the employee', error: err });
-            }
-            return res.status(200).json({ message: 'Employee deleted successfully' });
-          });
-          return;
+      const query = 'CALL deleteEmployee(?)';
+    
+      db.query(query, [id], (err) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ message: 'Error deleting the employee and related records', error: err });
         }
-
-        db.query(queries[index], [id], (err) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({ message: 'Error deleting related records', error: err });
-          }
-          runQuery(index + 1);
-        });
-      };
-
-      // Start the first query
-      runQuery(0);
+        return res.status(200).json({ message: 'Employee deleted successfully' });
+      });
     };
+    
 
     deleteRelatedRecords();
   });
