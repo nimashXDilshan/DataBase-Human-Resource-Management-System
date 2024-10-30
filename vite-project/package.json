@@ -20,6 +20,12 @@
     "@mui/x-date-pickers": "^7.19.0",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
+    "html2canvas": "^1.4.1",
+    "chart.js": "^4.4.6",
+    "date-fns": "^4.0.0-beta.1",
+"react-chartjs-2": "^5.2.0",
+
+    "jspdf": "^2.5.2",
     "luxon": "^3.5.0",
     "mdb-react-ui-kit": "^8.0.0",
     "react": "^18.3.1",

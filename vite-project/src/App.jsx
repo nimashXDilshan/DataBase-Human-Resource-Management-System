@@ -22,6 +22,8 @@ import AllEmploees from './Pages/AllEmployees';
 import { AuthProvider, useAuth } from './contexts/AuthContexts';
 import PrivateRoute from './contexts/PrivateRoute';
 import SalaryHistory from './Pages/View_salary';
+import Reportingmodule from './Pages/ReportingModule';
+
 
 function AppLayout({ children }) {
   const { user } = useAuth();
@@ -65,6 +67,7 @@ function App() {
             <Route path="/View_salary" element={<SalaryHistory />} />
             <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
             <Route path='/createonlyloginpage' element={<Newloginpage />} />
+              <Route path="/ReportingModule" element={<Reportingmodule />} />
 
             {/* Catch-all for unknown routes */}
             <Route path="*" element={<Error />} />

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Logofooter from "../Components/Logo-Footer/logofooter";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { Bar } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+ChartJS.register(BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 function ReportingModule() {
   const [employeeData1, setEmployeeData1] = useState([]);
@@ -19,7 +22,7 @@ function ReportingModule() {
 
   // Fetch employee data
   useEffect(() => {
-    fetch("http://localhost:5002/employee")
+    fetch("http://localhost:5000/api/employeedepartment")
       .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
       .then((data) => setEmployeeData1(data))
       .catch((err) => console.log('Fetch error:', err));
@@ -27,7 +30,7 @@ function ReportingModule() {
 
   // Fetch leave data
   useEffect(() => {
-    fetch("http://localhost:5002/total_leaves")
+    fetch("http://localhost:5000/api/total_leaves")
       .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
       .then((data) => setLeaveData(data))
       .catch((err) => console.log("Fetch error:", err));
@@ -35,22 +38,23 @@ function ReportingModule() {
 
   // Fetch employee details by role
   useEffect(() => {
-    fetch("http://localhost:5002/employees_by_role")
+    fetch("http://localhost:5000/api/employees_by_role")
       .then((res) => res.ok ? res.json() : Promise.reject(res.statusText))
       .then((data) => setRoleData(data))
       .catch((err) => console.log("Fetch error:", err));
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5002/employee_report")
+    fetch("http://localhost:5000/api/employee_report")
       .then((res) => res.json())
       .then((data) => setEmployeeReport(data))
       .catch((err) => console.log(err));
   }, []);
 
   // Filtered data based on department selection
-  const filteredEmployeeData1 = selectedDepartment
-    ? employeeData1.filter((emp) => emp.department_name === selectedDepartment)
+  // Filtered data based on department selection
+  const filteredEmployeeData1 = departmentFilter1
+    ? employeeData1.filter((emp) => emp.department_name === departmentFilter1)
     : employeeData1;
 
   const filteredLeaveData = selectedDepartment
@@ -76,6 +80,18 @@ function ReportingModule() {
     );
   });
 
+  // Prepare Leaves Bar Chart Data
+  const leaveChartData = {
+    labels: filteredLeaveData.map((leave) => leave.department_name),
+    datasets: [
+      { label: 'Annual Leaves', data: filteredLeaveData.map((leave) => leave.Annual_Leaves), backgroundColor: '#FF6384' },
+      { label: 'Casual Leaves', data: filteredLeaveData.map((leave) => leave.Casual_Leaves), backgroundColor: '#36A2EB' },
+      { label: 'Maternity Leaves', data: filteredLeaveData.map((leave) => leave.Maternity_Leaves), backgroundColor: '#FFCE56' },
+      { label: 'No Pay Leaves', data: filteredLeaveData.map((leave) => leave.NoPay_Leaves), backgroundColor: '#4BC0C0' }
+    ]
+  };
+
+
   // Function to generate PDF
   const downloadPDF = (tableId, pdfTitle) => {
     const input = document.getElementById(tableId);
@@ -93,7 +109,7 @@ function ReportingModule() {
       // Add the table image after the title
       pdf.addImage(imgData, "PNG", 10, 30, imgWidth, imgHeight);
 
-      pdf.save(${pdfTitle}.pdf); // Save PDF with title as filename
+      pdf.save(`${pdfTitle}.pdf`); // Save PDF with title as filename
     });
   };
 
@@ -110,8 +126,8 @@ function ReportingModule() {
             <label className="text-lg font-medium text-gray-700">Select Department:</label>
             <select
               className="ml-4 px-4 py-2 mt-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none"
-              value={selectedDepartment}
-              onChange={(e) => setSelectedDepartment(e.target.value)}
+              value={departmentFilter1}
+              onChange={(e) => setDepartmentFilter1(e.target.value)}
             >
               <option value="">All Departments</option>
               <option value="Human Resources">Human Resources</option>
@@ -140,7 +156,7 @@ function ReportingModule() {
                     filteredEmployeeData1.map((employee, i) => (
                       <tr key={i} className="hover:bg-gray-100">
                         <td className="py-3 px-4 text-center">{employee.employee_id}</td>
-                        <td className="py-3 px-4 text-center">{${employee.first_name} ${employee.last_name}}</td>
+                        <td className="py-3 px-4 text-center">{`${employee.first_name} ${employee.last_name}`}</td>
                         <td className="py-3 px-4 text-center">{employee.role_name}</td>
                         <td className="py-3 px-4 text-center">{employee.status_name}</td>
                         <td className="py-3 px-4 text-center">{employee.pay_grade_level_name}</td>
@@ -219,6 +235,46 @@ function ReportingModule() {
           </div>
         </div>
 
+        <div className="flex justify-center mt-10 w-full">
+          <div className="w-3/4" style={{ height: '600px' }}> {/* Adjusted height */}
+            <Bar
+              data={leaveChartData}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                    labels: {
+                      color: '#ffffff',
+                      font: { weight: 'bold' }
+                    }
+                  },
+                  tooltip: {
+                    bodyFont: { weight: 'bold' },
+                    titleFont: { weight: 'bold' }
+                  }
+                },
+                scales: {
+                  x: {
+                    ticks: {
+                      color: '#ffffff',
+                      font: { weight: 'bold' }
+                    }
+                  },
+                  y: {
+                    max: 20, // Adjust this value to reduce bar height
+                    ticks: {
+                      color: '#ffffff',
+                      font: { weight: 'bold' }
+                    }
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+
         {/* Download Button */}
         <div className="flex justify-center mt-6">
           <button
@@ -266,7 +322,7 @@ function ReportingModule() {
                   filteredRoleData.map((role, i) => (
                     <tr key={i} className="hover:bg-gray-100">
                       <td className="py-3 px-4 text-center">{role.employee_id}</td>
-                      <td className="py-3 px-4 text-center">{${role.first_name} ${role.last_name}}</td>
+                      <td className="py-3 px-4 text-center">{`${role.first_name} ${role.last_name}`}</td>
                       <td className="py-3 px-4 text-center">{role.role_name}</td>
                       <td className="py-3 px-4 text-center">{role.role_description}</td>
                     </tr>

@@ -6,11 +6,13 @@ import bodyParser from 'body-parser';
 import createUserAccount from './routes/CreateUserAccountRoute.js';
 import loginAcconut from './routes/loginAcconutRoutes.js';
 import db from './config/db.js';
-import approveLeaveRequest from './routes/AcceptLeavesSupervisorRoutes.js';
 import employeeRoute from './routes/employeeRoute.js'
 import employeeMoreInfoRoute from './routes/employeeMoreInfoRoute.js'; 
 import {gen} from './controllers/hashgen.js';
 import passport from './auth/stratergy.js';
+
+import approveLeaveRequest from './routes/AcceptLeavesSupervisorRoutes.js';
+import updatestatusleave from './routes/ChangeStatusoftheleavebysupervisor.js'
 
 import nationality from './routes/getNationalityRoutes.js'
 import personalDetails from './routes/personaldetailsRoutes.js'
@@ -23,6 +25,12 @@ import getleaverequestusingleave_id from './routes/getleaverequestbyleaveId.js'
 import deleteleavebyleave_id from './routes/deleteLeaveRoutes.js'
 import loadleavebyemployee_id from './routes/loadleaverequestbyemployee_id.js'
 import createleaveRoutes from './routes/createleaveRoutes.js';
+
+
+import reportingEmployeedepartment from './routes/ReportingModuleRoutesDepartment.js'
+import reportingLeaves from './routes/ReportingModuleLeavesByDepartment.js'
+import reportingrole from './routes/ReportingModuleRole.js'
+import reportingreport from './routes/ReportingModuleReport.js'
 
 //import BranchForFillEmployeeDetails from './routes/BranchRoutes.js';
 
@@ -84,8 +92,13 @@ app.use( '/api/Deleteleave', checkAuth,deleteleavebyleave_id)
 app.use('/api/register', createUserAccount);
 app.use('/api/login', loginAcconut);
 
+
+//-------------------------------------------------------------------supervisor
+app.use('/api/approveLeave', approveLeaveRequest);
+app.use('/api/ChangeStatusapproveLeave', updatestatusleave);
 //-------------------------------------------------------------------
 
+app.use('/api/employeeMoreInfo', employeeMoreInfoRoute);
 
 app.get('/gen',gen);
 
@@ -106,7 +119,17 @@ app.use("/api/EmployementDetails", checkAuth, employmentdetails);
 app.use("/api/Salary_Record",checkAuth, SalaryRecords);
 
 
-//---------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------Reporting module
+app.use("/api/employeedepartment", reportingEmployeedepartment);
+app.use("/api/total_leaves", reportingLeaves);
+app.use("/api/employees_by_role", reportingrole);
+app.use("/api/employee_report", reportingreport);
+
+
+
+//------------------------------------------------------------------------------------
+
+
 
 app.get('/',(re,res)=>{
   return res.json("From Backend side");

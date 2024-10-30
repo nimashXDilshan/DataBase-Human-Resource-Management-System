@@ -75,11 +75,12 @@ const View = () => {
 </div>
 
 
-          <Link to="/Leave">
-            <div className="w-full py-3 bg-gray-900 text-white rounded-lg transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-              Go Back
-            </div>
-          </Link>
+<Link to="/Leave">
+  <div className="w-full py-3 bg-gray-900 text-white rounded-lg text-center transition duration-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+    Go Back
+  </div>
+</Link>
+
         </div>
       </div>
     </div>
