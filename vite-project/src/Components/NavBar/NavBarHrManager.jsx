@@ -51,36 +51,42 @@ const SideNavBar = () => {
       {/* Navigation Links */}
       <div className="flex-1 px-2 py-4 flex flex-col gap-2">
         <NavItem icon={HomeIcon} label="Dashboard" to="/dashboard" />
-
-        <NavItem
-          icon={CalendarMonthIcon}
-          label="My Leave Requests"
-          to="/Leave"
+        <NavItem 
+          icon={CalendarMonthIcon} 
+          label="All Leave Requests" 
+          to="/ApproveLeaveSupervisor" 
         />
-
-
-
-        <NavItem
-          icon={AccountCircleIcon}
-          label="Profile"
-          to="/profile"
+        <NavItem 
+          icon={CalendarMonthIcon} 
+          label="My Leave Requests" 
+          to="/Leave" 
+        />
+        <NavItem 
+          icon={PeopleIcon} 
+          label="All Employees" 
+          to="/AllEmployees" 
+        />
+        <NavItem 
+          icon={AccountCircleIcon} 
+          label="Profile" 
+          to="/profile" 
         />
       </div>
 
       {/* Auth Section */}
       <div className="px-2 py-4 border-t border-slate-700">
         {!user && (
-          <NavItem
-            icon={LoginIcon}
-            label="Login"
-            to="/createonlyloginpage"
+          <NavItem 
+            icon={LoginIcon} 
+            label="Login" 
+            to="/createonlyloginpage" 
           />
         )}
         {user && (
-          <NavItem
-            icon={LogoutIcon}
-            label="Logout"
-            onClick={handleLogout}
+          <NavItem 
+            icon={LogoutIcon} 
+            label="Logout" 
+            onClick={handleLogout} 
           />
         )}
       </div>
