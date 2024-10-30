@@ -3,12 +3,7 @@ export const getUnseenLeaveRequests = (req, res) => {
   const employeeId = req.params.employee_id;
 
   // SQL query to fetch unseen leave requests for the specified employee
-  const sqlCode = `
-    select * from leave_request 
-where employee_id in (SELECT employee_id FROM employee
-						where supervisor_id=(SELECT supervisor_id FROM supervisor
-												where employee_id=?  AND leave_status = 'UN SEEN'));
-  `;
+  const sqlCode = "call getUnSeenLeaves(?)";
 
   // Execute the SQL query
   db.query(sqlCode, [employeeId], (err, data) => {
@@ -23,7 +18,7 @@ where employee_id in (SELECT employee_id FROM employee
     }
     
     // Return the unseen leave requests
-    return res.json(data);
+    return res.json(data[0]);
   });
 };
 
@@ -32,7 +27,7 @@ export const getUpdatedData = (req, res) => {
   const { leave_status } = req.body; // This will either be 'Approved' or 'Not Approved'
 
   // Update the leave request status in the database
-  const sqlUpdate = "UPDATE leave_request SET leave_status = ? WHERE leave_id = ?";
+  const sqlUpdate = "call uppdateLeaveTable(?,?)";
   db.query(sqlUpdate, [leave_status, leave_id], (error, results) => {
     if (error) {
       console.error(error);

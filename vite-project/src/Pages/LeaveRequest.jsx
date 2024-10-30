@@ -102,7 +102,7 @@ const LeaveRequest = () => {
             <option value="Annual">Annual Leave</option>
             <option value="Casual">Casual Leave</option>
             <option value="Maternity">Maternity Leave</option>
-            <option value="No Pay">No Pay</option>
+            <option value="Nopay">No Pay</option>
           </select>
         </div>
 

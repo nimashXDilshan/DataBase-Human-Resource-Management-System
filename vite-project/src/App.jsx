@@ -55,7 +55,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/Error" element={<Error />} />
             <Route path="/Leave" element={<Leave />} />
-            <Route path="/LeaveRequest" element={<LeaveRequest />} />
+            <Route path="/Leave Request" element={<LeaveRequest />} />
             <Route path="/FillEmployeeDetails" element={<Fillemployeedetails />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/newLogin" element={<CreateUserAccount />} />
