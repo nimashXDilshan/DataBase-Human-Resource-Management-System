@@ -44,9 +44,8 @@ function AppLayout({ children }) {
 
       {/* Main Content */}
       <div
-        className={`flex-1 ${isRoleOne || isRoleTwoOrThreeOrFour ? 'ml-64' : ''} ${
-          !isRoleOne && !isRoleTwoOrThreeOrFour ? 'mt-10' : ''
-        }`}
+        className={`flex-1 ${isRoleOne || isRoleTwoOrThreeOrFour ? 'ml-64' : ''} ${!isRoleOne && !isRoleTwoOrThreeOrFour ? 'mt-10' : ''
+          }`}
       >
         {children}
       </div>
@@ -62,13 +61,14 @@ function App() {
           <Routes>
             {/* Routes for role 1 */}
             <Route element={<PrivateRoute allowedRoles={['1']} />}>
-              <Route path="/contact" element={<Contact />} />
               <Route path="/AllEmployees" element={<AllEmploees />} />
               <Route path="/ReportingModule" element={<Reportingmodule />} />
 
             </Route>
 
             {/* Routes accessible by all authenticated users */}
+            <Route path="/contact" element={<Contact />} />
+
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
