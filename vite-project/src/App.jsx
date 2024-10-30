@@ -67,7 +67,7 @@ function App() {
             <Route path="/View_salary" element={<SalaryHistory />} />
             <Route path="/ApproveLeaveSupervisor" element={<SupervisorLeaveApprove />} />
             <Route path='/createonlyloginpage' element={<Newloginpage />} />
-              <Route path="/ReportingModule" element={<Reportingmodule />} />
+            <Route path="/ReportingModule" element={<Reportingmodule />} />
 
             {/* Catch-all for unknown routes */}
             <Route path="*" element={<Error />} />
