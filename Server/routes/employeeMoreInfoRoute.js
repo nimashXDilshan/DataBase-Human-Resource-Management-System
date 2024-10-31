@@ -86,5 +86,18 @@ router.get('/role', (req, res) => {
   });
 });
 
+// get custom attributes
+router.get('/customAttributes', (req, res) => {
+  const query = 'SELECT * FROM custom_attribuit';
+
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error('Error fetching custom attributes:', err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    res.status(200).json(result);
+  });
+});
+
 
 export default router;

@@ -25,7 +25,13 @@ const addEmployee = async (req, res) => {
     branchID,
     supervisorID,
     employmentStatusID,
-    roleID
+    roleID,
+    customDetail_1,
+    customDetail_1_Value,
+    customDetail_2,
+    customDetail_2_Value,
+    customDetail_3,
+    customDetail_3_Value,
   } = req.body;
 
   // Check for required fields
@@ -34,7 +40,7 @@ const addEmployee = async (req, res) => {
   }
 
   // Insert employee data
-  const queryEmployee = "call AddNewEmployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  const queryEmployee = "call AddNewEmployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   const password = await bcrypt.hash(`password@${employeeId || ''}`, 10);
   const employeeValues = [
     employeeId,
@@ -56,7 +62,13 @@ const addEmployee = async (req, res) => {
     emergencyContactName || null,
     emergencyContactAddress || null,
     emergencyContactPhone || null,
-    password
+    password,
+    customDetail_1 || null,
+    customDetail_1_Value || null,
+    customDetail_2 || null,
+    customDetail_2_Value || null,
+    customDetail_3 || null,
+    customDetail_3_Value || null
   ];
 
 

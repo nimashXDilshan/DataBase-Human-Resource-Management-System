@@ -13,6 +13,7 @@ import {
   Card,
   CardContent,
   MenuItem,
+  Autocomplete
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -41,7 +42,13 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
     branchID: '',
     supervisorID: '',
     employmentStatusID: '',
-    roleID: ''
+    roleID: '',
+    customDetail_1: '',
+    customDetail_1_Value: '',
+    customDetail_2: '',
+    customDetail_2_Value: '',
+    customDetail_3: '',
+    customDetail_3_Value: ''
   });
 
   // Dummy data for dropdowns
@@ -54,6 +61,8 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   const [selectedDept, setSelectedDept] = useState(0); // State for selected department
   const [employmentStatusOptions, setEmploymentStatusOptions] = useState([]); // State for employment status options
   const [roles, setRoles] = useState([]); // Add this line for roles
+  const [customAttributes, setCustomAttributes] = useState([]); // Add this line for custom attributes
+
 
 
 
@@ -106,7 +115,7 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
         console.error('Error fetching sections:', error);
       }
     };
-    
+
     if (selectedDept) {
       fetchSectionsByDepartment(); // Call the function to fetch section data only if selectedDept is defined
     }
@@ -138,6 +147,20 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
     fetchRoles(); // Fetch roles when the component loads
   }, []);
 
+  //fetch custom attributes
+  useEffect(() => {
+    const fetchCustomAttributes = async () => {
+      try {
+        const response = await api.get('/api/employeeMoreInfo/customAttributes'); // Use your custom API instance
+        setCustomAttributes(response.data); // Set the fetched custom attribute data
+      } catch (error) {
+        console.error('Error fetching custom attributes:', error);
+      }
+    };
+
+    fetchCustomAttributes(); // Fetch custom attributes when the component loads
+  }, []);
+
 
 
 
@@ -159,15 +182,15 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
   // Handle form submission
   const handleSubmit = async () => {
     try {
-        const response = await api.post('/api/employee', formData); // Use your custom API instance
-        console.log('Employee added:', response.data);
-        handleClose(); // Close the dialog after successful submission
+      const response = await api.post('/api/employee', formData); // Use your custom API instance
+      console.log('Employee added:', response.data);
+      handleClose(); // Close the dialog after successful submission
     } catch (error) {
-        console.error('Error adding employee:', error);
-        // Optionally, you can display an error message to the user
-        alert('Failed to add employee. Please try again.');
+      console.error('Error adding employee:', error);
+      // Optionally, you can display an error message to the user
+      alert('Failed to add employee. Please try again.');
     }
-};
+  };
 
 
   return (
@@ -482,10 +505,157 @@ const AddEmployeeDialog = ({ open, handleClose }) => {
                     </MenuItem>
                   ))}
                 </TextField>
+
               </Grid>
 
 
+
             </Grid>
+
+            <Typography variant="h6" className="text-primary font-bold mb-4 pt-10 pb-6">
+              Custom Details
+            </Typography>
+            <Grid container spacing={4}>
+
+
+
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  freeSolo
+                  options={customAttributes.map((role) => role.attribute)} // Maps only the names
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Custom Detail 1"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  )}
+                  value={formData.customDetail_1}
+                  onInputChange={(event, newInputValue) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      customDetail_1: newInputValue,
+                    }));
+                  }}
+                  onChange={(event, value) => {
+                    const selectedRole = customAttributes.find((role) => role.attribute === value);
+                    if (selectedRole) {
+                      setFormData({
+                        ...formData,
+                        customDetail_1: selectedRole.attribute,
+                        // Populate other fields if needed
+                      });
+                    }
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Custom Feild 1 Value"
+                  name="customDetail_1_Value"
+                  variant="outlined"
+                  fullWidth
+                  value={formData.customDetail_1_Value}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  freeSolo
+                  options={customAttributes.map((role) => role.attribute)} // Maps only the names
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Custom Detail 2"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  )}
+                  value={formData.customDetail_2}
+                  onInputChange={(event, newInputValue) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      customDetail_2: newInputValue,
+                    }));
+                  }}
+                  onChange={(event, value) => {
+                    const selectedRole = customAttributes.find((role) => role.attribute === value);
+                    if (selectedRole) {
+                      setFormData({
+                        ...formData,
+                        customDetail_2: selectedRole.attribute,
+                        // Populate other fields if needed
+                      });
+                    }
+                  }}
+                />
+
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Custom Feild 2 Value"
+                  name="customDetail_2_Value"
+                  variant="outlined"
+                  fullWidth
+                  value={formData.customDetail_2_Value}
+                  onChange={handleInputChange}
+                />
+
+              </Grid>
+
+
+              {/* custom feild 3 */}
+
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  freeSolo
+                  options={customAttributes.map((role) => role.attribute)} // Maps only the names
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Custom Detail 3"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  )}
+                  value={formData.customDetail_3}
+                  onInputChange={(event, newInputValue) => {
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      customDetail_3: newInputValue,
+                    }));
+                  }}
+                  onChange={(event, value) => {
+                    const selectedRole = customAttributes.find((role) => role.attribute === value);
+                    if (selectedRole) {
+                      setFormData({
+                        ...formData,
+                        customDetail_3: selectedRole.attribute,
+                        // Populate other fields if needed
+                      });
+                    }
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Custom Feild 3 Value"
+                  name="customDetail_3_Value"
+                  variant="outlined"
+                  fullWidth
+                  value={formData.customDetail_3_Value}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+
+            </Grid>
+
+
           </CardContent>
         </Card>
       </DialogContent>
