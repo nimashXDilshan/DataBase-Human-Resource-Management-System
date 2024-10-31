@@ -8,7 +8,7 @@ import api from "../config";
 const Leave = () => {
   const [data, setData] = useState([]);
   const [requestedLeaves, setRequestedLeaves] = useState(0);
-  const [approvedLeaves, setApprovedLeaves] = useState(1); // Should come from admin pages
+  const [approvedLeaves, setApprovedLeaves] = useState(0); // Should come from admin pages
   const [remainingLeaves, setRemainingLeaves] = useState(49); // Assuming a total of 50 leaves
 
   const { user } = useAuth(); // Retrieve user object from AuthContext
@@ -16,32 +16,34 @@ const Leave = () => {
 
   const loadData = async () => {
     try {
-        const response = await api.get(`/api/Loadleave/${employee_id}`); // Use the Axios instance
-        setData(response.data);
-        setRequestedLeaves(response.data.length);
-        setRemainingLeaves(50 - approvedLeaves); // Recalculate remaining leaves
+      const response = await api.get(`/api/Loadleave/${employee_id}`); // Use the Axios instance
+      setData(response.data);
+      setRequestedLeaves(response.data.length);
+      const approvedCount = response.data.filter(leave => leave.leave_status === "Approved").length;
+      setApprovedLeaves(approvedCount);
+      setRemainingLeaves(50 - approvedCount); // Recalculate remaining leaves
     } catch (error) {
-        console.error("Error loading data:", error);
-        toast.error("Error loading leaves data. Please try again."); // Handle error notification
+      console.error("Error loading data:", error);
+      toast.error("Error loading leaves data. Please try again."); // Handle error notification
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     loadData(); // Call loadData when employee_id changes
-}, [employee_id]);
+  }, [employee_id]);
 
-const deleteContent = async (id) => {
+  const deleteContent = async (id) => {
     if (window.confirm("Are you sure that you want to delete this content?")) {
-        try {
-            await api.delete(`/api/Deleteleave/${id}`); // Use the Axios instance
-            toast.success("Content deleted successfully");
-            loadData(); // Refresh data after deletion
-        } catch (error) {
-            toast.error("Error deleting content. Please try again.");
-            console.error("Error deleting content:", error);
-        }
+      try {
+        await api.delete(`/api/Deleteleave/${id}`); // Use the Axios instance
+        toast.success("Content deleted successfully");
+        loadData(); // Refresh data after deletion
+      } catch (error) {
+        toast.error("Error deleting content. Please try again.");
+        console.error("Error deleting content:", error);
+      }
     }
-};
+  };
 
   const formatDate = (dateTimeString) => {
     const date = new Date(dateTimeString);

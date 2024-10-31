@@ -422,9 +422,7 @@ function ReportingModule() {
                 <th className="py-3 px-4 text-center border-b-2 border-gray-700">
                   Employment Status
                 </th>
-                <th className="py-3 px-4 text-center border-b-2 border-gray-700">
-                  Salary
-                </th>
+                
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -445,9 +443,7 @@ function ReportingModule() {
                   <td className="py-3 px-4 text-center">
                     {employee.status_name}
                   </td>
-                  <td className="py-3 px-4 text-center">
-                    {employee.salary_amount?.toLocaleString() + "/= "}
-                  </td>
+                  
                 </tr>
               ))}
             </tbody>

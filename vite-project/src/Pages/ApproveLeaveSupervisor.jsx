@@ -71,7 +71,7 @@ const LeaveRequestsApprover = () => {
         <table className="min-w-full table-auto border-collapse">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2 text-middle font-semibold text-gray-700 border">Leave ID</th>
+              <th className="px-4 py-2 text-middle font-semibold text-gray-700 border">Employee ID</th>
               <th className="px-4 py-2 text-middle font-semibold text-gray-700 border">Start Date</th>
               <th className="px-4 py-2 text-middle font-semibold text-gray-700 border">End Date</th>
               <th className="px-4 py-2 text-middle font-semibold text-gray-700 border">Leave Type</th>
@@ -83,7 +83,7 @@ const LeaveRequestsApprover = () => {
             {requests.length > 0 ? (
               requests.map((request) => (
                 <tr key={request.leave_id} className="hover:bg-gray-50 transition duration-300">
-                  <td className="px-4 py-2 border">{request.leave_id}</td>
+                  <td className="px-4 py-2 border">{request.employee_id}</td>
                   <td className="px-4 py-2 border">{formatDate(request.from_date)}</td>
                   <td className="px-4 py-2 border">{formatDate(request.to_date)}</td>
                   <td className="px-4 py-2 border">{request.leave_type}</td>

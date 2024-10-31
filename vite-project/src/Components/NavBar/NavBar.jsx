@@ -51,14 +51,18 @@ const SideNavBar = () => {
       {/* Navigation Links */}
       <div className="flex-1 px-2 py-4 flex flex-col gap-2">
         <NavItem icon={HomeIcon} label="Dashboard" to="/dashboard" />
-
+        
         <NavItem
           icon={CalendarMonthIcon}
           label="My Leave Requests"
           to="/Leave"
         />
-
-
+        
+        <NavItem
+          icon={CalendarMonthIcon}
+          label="All Leave Requests"
+          to="/ApproveLeaveSupervisor"
+        />
 
         <NavItem
           icon={AccountCircleIcon}

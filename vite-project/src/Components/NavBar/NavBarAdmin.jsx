@@ -44,6 +44,7 @@ const SideNavBar = () => {
         <RocketLaunchIcon className="w-8 h-8 text-emerald-500" />
         <span className="text-xl font-bold text-emerald-500">JUPITER</span>
       </div>
+      
 
       {/* Navigation Links */}
       <div className="flex-1 px-2 py-4 flex flex-col gap-2">
